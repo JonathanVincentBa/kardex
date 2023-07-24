@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Cliente;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -30,9 +31,10 @@ class ClientesController extends Component
             $data = Cliente::where('codigo', 'like', '%' . $this->search . '%')
                 ->orWhere('nombre', 'like', '%' . $this->search . '%')
                 ->orWhere('dni', 'like', '%' . $this->search . '%')
+                ->orderBy('id', 'desc')
                 ->paginate($this->pagination);
         } else {
-            $data = Cliente::paginate($this->pagination);
+            $data = Cliente::orderBy('id', 'desc')->paginate($this->pagination);
         }
 
 
@@ -56,8 +58,79 @@ class ClientesController extends Component
         $this->emit('show-modal', 'Show modal!');
     }
 
+
+
     public function Store()
     {
+        $cod = '';
+        $cont = 0;
+        $separadas = explode(" ", $this->nombre);
+
+        $cod .= substr($separadas[0], 0, 1);
+
+        $totalPalabras = count($separadas);
+
+        if ($totalPalabras == 1) {
+            $inicio = strlen($separadas[0]);
+            for ($i = 1; $i <= $inicio; $i++) {
+                for ($j = $i; $j <= $inicio; $j++) {
+                    $cod .= substr($separadas[0], $j, 1);
+                    $cont = $j + 1;
+                    $cod .= substr($separadas[0], $cont, 1);
+                    $sql = DB::select('SELECT count(*) as cod from clientes where codigo = ?', [$cod]);
+                    if ($sql[0]->cod == 1) {
+                        $cod = '';
+                        $cod .= substr($separadas[0], 0, 1);
+                    } else {
+                        $this->codigo = $cod;
+                        break 2;
+                    }
+                }
+            }
+        }
+
+        else if ($totalPalabras == 2) {
+            $cod .= substr($separadas[1], 0, 1);
+            $inicio = strlen($separadas[1]);
+            for ($i = 1; $i <= $inicio; $i++) {
+                for ($j = $i; $j <= $inicio; $j++) {
+                    $cod .= substr($separadas[1], $j, 1);
+                    $sql = DB::select('SELECT count(*) as cod from clientes where codigo = ?', [$cod]);
+                    if ($sql[0]->cod == 1) {
+                        $cod = '';
+                        $cod .= substr($separadas[0], 0, 1);
+                    } else {
+                        $this->codigo = $cod;
+                        break 2;
+                    }
+                }
+            }
+        }
+
+        else if ($totalPalabras > 2) {
+            $inicio = strlen($separadas[1]);
+            for ($i = 0; $i <= $inicio; $i++) {
+                for ($j = $i; $j <= $inicio; $j++) {
+                    $cod .= substr($separadas[1], $j, 1);
+                    if(strlen($cod) == 2)
+                    {
+                        $cod .= substr($separadas[2], 0, 1);
+                        $sql = DB::select('SELECT count(*) as cod from clientes where codigo = ?', [$cod]);
+                        if ($sql[0]->cod == 1)
+                        {
+                            $cod = '';
+                            $cod .= substr($separadas[0], 0, 1);
+                        }
+                        else
+                        {
+                            $this->codigo = $cod;
+                            break 2;
+                        }
+                    }
+                }
+            }
+        }
+
         $rules = [
             'codigo' => 'required|unique:clientes|min:3|max:4',
             'nombre' => 'required',
@@ -110,7 +183,7 @@ class ClientesController extends Component
             'direccion' => 'required',
             'dni' => 'required|min:10|max:13',
             'fono1' => 'required',
-            'email' =>"required|unique:clientes,email,{$this->selected_id}"
+            'email' => "required|unique:clientes,email,{$this->selected_id}"
         ];
         $messages = [
             'codigo.required' => 'Codigo de cliente es requerido',

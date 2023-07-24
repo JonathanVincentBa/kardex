@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('control_archivos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cliente_id')->constrained('clientes');
-            $table->foreignId('servicio_id')->constrained('servicios');
             $table->foreignId('tipo_servicio_id')->constrained('tipo_servicios');
             $table->string('carpeta',5);
             $table->text('asunto');

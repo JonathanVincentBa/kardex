@@ -26,6 +26,7 @@
                 <li><a class="treeview-item" href="{{url('servicios')}}""><i class="icon fa fa-circle-o"></i> Servicios</a></li>
                 <li><a class="treeview-item" href="{{url('tipo-servicios')}}"><i class="icon fa fa-circle-o"></i> Tipo de
                         servicio</a></li>
+
             </ul>
         </li>
 

@@ -4,8 +4,10 @@ namespace App\Http\Livewire;
 
 use App\Models\Servicio;
 use App\Models\TipoServicio;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
 class TipoServiciosController extends Component
 {
@@ -32,13 +34,13 @@ class TipoServiciosController extends Component
             $data = TipoServicio::join('servicios as s', 's.id', '=' , 'tipo_servicios.servicio_id')
                 ->select('tipo_servicios.*', 's.nombre as servicio', 's.codigo')
                 ->where('tipo_servicios.nombre', 'like', '%' .$this->search . '%')
-                ->orWhere('s.nombre', 'like', '%' -$this->search. '%')
-                ->orderBy('tipo_servicios.id', 'desc')
+                ->orWhere('s.nombre', 'like', '%' .$this->search. '%')
+                ->orderBy('tipo_servicios.id tipo_servicio.codigo', 'desc')
                 ->paginate($this->pagination);
         } else {
             $data = TipoServicio::join('servicios as s', 's.id', '=' , 'tipo_servicios.servicio_id')
             ->select('tipo_servicios.*', 's.nombre as servicio')
-            ->orderBy('tipo_servicios.id', 'desc')
+            ->orderByRaw('tipo_servicios.id - tipo_servicios.codigo ASC')
             ->paginate($this->pagination);
         }
 
@@ -55,6 +57,13 @@ class TipoServiciosController extends Component
 
     public function Store()
     {
+        $servicio = $this->servicioid;
+        dump($servicio);
+
+        $cod = DB::select('select codigo from servicios where id = ?', [$this->servicioid]);
+
+        Dump($cod);
+
         $rules = [
             'servicioid' => 'required|not_in:Elegir',
             'codigo' => 'required|unique:tipo_servicios',
@@ -141,5 +150,7 @@ class TipoServiciosController extends Component
         $this->resetUI();
         $this->emit('tipoServicio-deleted', 'Tipo de servicio Eliminado');
     }
+
+
 
 }

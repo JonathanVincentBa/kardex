@@ -53,6 +53,9 @@
 
 
 <script>
+
+
+
     document.addEventListener('DOMContentLoaded', function() {
         window.livewire.on('cliente-added', msg => {
             $('#theModal').modal('hide');

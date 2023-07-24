@@ -2,47 +2,46 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Cliente;
 use App\Models\ControlArchivo;
-use App\Models\TipoServicio;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class ControlArchivosController extends Component
 {
-    use WithPagination;
-
-    public $clienteId, $servicioId, $tipoId, $carpeta, $asunto, $status, $search, $select_id, $pageTitle, $componetName;
-
+    public $clienteId, $tipoSevicioId, $carpeta, $asunto, $status, $search, $selected_id, $pageTitle, $componetName;
     private $pagination = 10;
-
-    public function paginationView()
-    {
-        return 'vendor.livewire.bootstrap';
-    }
 
     public function mount()
     {
-        $this->pageTitle = 'Listado';
-        $this->componetName = 'Control de Archivos';
-        $this->clienteId = 'Elegir';
-        $this->servicioId = 'Elegir';
-        $this->tipoId = 'Elegir';
+        $this->pageTitle = "Listado";
+        $this->componetName = "Control de archivos";
     }
+
+    public function paginationView()
+    {
+        return 'vendor.livewire.boostrap';
+    }
+
+
 
     public function render()
     {
         if (strlen($this->search) > 0) {
-            $data = ControlArchivo::join('clientes as c', 'control_archivos.id', '=', 'c.id')
-            ->join('tipo_servicios as s', 'control_archivos.id', '=', 's.id')
-            ->select('control_archivos.*', 'c.nombre as cliente', 's.codigo as tipoCodigo', 's.nombre as tipoNombre')
-            ->orderByRaw('s.codigo - control_archivos.carpeta ASC')
+            $data = ControlArchivo::join('clientes as c', 'c.id', '=', 'control_archivos.cliente_id')
+                ->join('tipo_servicios as t', 't.id', '=', 'control_archivos.tipo_servicio_id' )
+                ->select('c.nombre as cliente', 't.codigo as tipo' ,'carpeta', 'asunto')
+                ->where('c.nombre', 'like', '%' . $this->search . '%')
+                ->orderby('control_archivos.id', 'desc')
+                ->paginate($this->pagination);
+        }
+        else
+        {
+            $data = ControlArchivo::join('clientes as c', 'c.id', '=', 'control_archivos.cliente_id')
+            ->join('tipo_servicios as t', 't.id', '=', 'control_archivos.tipo_servicio_id' )
+            ->select('c.nombre as cliente', 't.codigo as tipo' ,'carpeta', 'asunto')
+            ->orderby('control_archivos.id', 'desc')
             ->paginate($this->pagination);
         }
-
-        return view(
-            'livewire.control-archivos.component',
-            )
+        return view('livewire.controlArchivos.component', ['controlArchivos' => $data])
             ->extends('layouts.app')
             ->section('content');
     }
