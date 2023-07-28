@@ -3,13 +3,14 @@
 <div class="row">
     <div class="col-sm-6">
         <div class="form-group">
+            <label>CODIGO</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
                         <span class="fas fa-edit"></span>
                     </span>
                 </div>
-                <input type="text" wire:model.lazy='codigo' class="form-control" placeholder="CODIGO" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();" disabled>
+                <input type="text" wire:model.lazy='codigo' class="form-control" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();" disabled>
             </div>
         </div>
         @error('codigo')
@@ -18,13 +19,14 @@
     </div>
     <div class="col-sm-6">
         <div class="form-group">
+            <label>NOMBRE *</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
                         <span class="fas fa-edit"></span>
                     </span>
                 </div>
-                <input type="text" wire:model.lazy='nombre' class="form-control" placeholder="NOMBRE" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();">
+                <input type="text" wire:model.lazy='nombre' class="form-control" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();">
             </div>
         </div>
         @error('nombre')
@@ -35,13 +37,14 @@
 <div class="row">
     <div class="col-sm-6">
         <div class="form-group">
+            <label>DNI*</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
                         <span class="fas fa-edit"></span>
                     </span>
                 </div>
-                <input type="number" wire:model.lazy='dni' class="form-control" placeholder="DNI">
+                <input type="number" wire:model.lazy='dni' class="form-control">
             </div>
         </div>
         @error('dni')
@@ -50,13 +53,14 @@
     </div>
     <div class="col-sm-6">
         <div class="form-group">
+            <label>DIRECCIÓN</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
                         <span class="fas fa-edit"></span>
                     </span>
                 </div>
-                <input type="text" wire:model.lazy='direccion' class="form-control" placeholder="DIRECCIÓN" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();">
+                <input type="text" wire:model.lazy='direccion' class="form-control" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();">
             </div>
         </div>
         @error('direccion')
@@ -67,13 +71,14 @@
 <div class="row">
     <div class="col-sm-6">
         <div class="form-group">
+            <label>CORREO ELECTRONICO*</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
                         <span class="fas fa-edit"></span>
                     </span>
                 </div>
-                <input type="email" wire:model.lazy='email' class="form-control" placeholder="CORREO ELECTRONICO" style="text-transform:lowercase;"  onkeyup="javascript:this.value=this.value.toLowerCase();">
+                <input type="email" wire:model.lazy='email' class="form-control" style="text-transform:lowercase;"  onkeyup="javascript:this.value=this.value.toLowerCase();">
             </div>
         </div>
         @error('email')
@@ -82,13 +87,14 @@
     </div>
     <div class="col-sm-3">
         <div class="form-group">
+            <label>TELÉFONO 1</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
                         <span class="fas fa-edit"></span>
                     </span>
                 </div>
-                <input type="number" wire:model.lazy='fono1' class="form-control" placeholder="TELÉFONO 1">
+                <input type="number" wire:model.lazy='fono1' class="form-control">
             </div>
         </div>
         @error('fono1')
@@ -97,13 +103,14 @@
     </div>
     <div class="col-sm-3">
         <div class="form-group">
+            <label>TELÉFONO 2</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
                         <span class="fas fa-edit"></span>
                     </span>
                 </div>
-                <input type="number" wire:model.lazy='fono2' class="form-control" placeholder="TELÉFONO 2">
+                <input type="number" wire:model.lazy='fono2' class="form-control">
             </div>
         </div>
         @error('fono2')
