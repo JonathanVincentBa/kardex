@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('kardexes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_control_archivo')->constrained('control_archivos');
+            $table->foreignId('control_archivo_id')->constrained('control_archivos');
             $table->integer('cliente_id');
             $table->integer('servicio');
             $table->integer('tipo_servicio');
