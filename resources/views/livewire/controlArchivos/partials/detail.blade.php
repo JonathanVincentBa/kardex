@@ -2,8 +2,9 @@
     <div class="connect-sorting-content">
         <div class="car simple-title-task ui-sortable-handle">
             <div class="car-body">
-                @if (!is_null($search))
-                    <div class="table-responsive tblscroll" style="max-height: 499px; overflow-y: scroll; overflow-y: auto;">
+                @if (!is_null($selectedCliente))
+                    <div class="table-responsive tblscroll"
+                        style="max-height: 499px; overflow-y: scroll; overflow-y: auto;">
                         <table class="table table-bordered table-striped mt-1">
                             <thead class="text-white" style="background: #3b3f5c">
                                 <tr>

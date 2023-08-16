@@ -17,17 +17,18 @@
 </div>
 
 <script>
-    document.addEventListener('livewire:load', function(){
+    document.addEventListener('DOMContentLoaded', function() {
         $('#cliente').select2();
-        $('#cliente').on('change', function(){
-            @this.set('search', this.value);
+        $('#cliente').on('change', function(e) {
+            var clienteId = $('#cliente').select2("val");
+            @this.set('selectedCliente', clienteId);
         });
     });
-    document.addEventListener('livewire:load', function(){
+    document.addEventListener('DOMContentLoaded', function() {
         $('#tipo').select2();
-        $('#tipo').on('change', function(){
-            @this.set('tipoId', this.value);
+        $('#tipo').on('change', function() {
+            var tipoId = $('tipo').select2("val");
+            @this.set('selectedTipo', tipoId);
         });
     });
-
 </script>
