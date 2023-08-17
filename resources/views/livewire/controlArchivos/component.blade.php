@@ -17,18 +17,18 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        $('#cliente').select2();
-        $('#cliente').on('change', function(e) {
-            var clienteId = $('#cliente').select2("val");
-            @this.set('selectedCliente', clienteId);
-        });
+document.addEventListener('DOMContentLoaded', function() {
+    $('#cliente').select2();
+    $('#cliente').on('change', function(e) {
+        var clienteId = $('#cliente').select2("val");
+        @this.set('selectedCliente', clienteId);
     });
-    document.addEventListener('DOMContentLoaded', function() {
-        $('#tipo').select2();
-        $('#tipo').on('change', function() {
-            var tipoId = $('tipo').select2("val");
-            @this.set('selectedTipo', tipoId);
-        });
+});
+document.addEventListener('DOMContentLoaded', function() {
+    $('#tipo').select2();
+    $('#tipo').on('change', function() {
+        var tipoId = $('#tipo').select2("val");
+        @this.set('selectedTipo', tipoId);
     });
+});
 </script>
