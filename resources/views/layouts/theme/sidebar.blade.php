@@ -45,7 +45,7 @@
             </a>
         </li>
         <li>
-            <a class="app-menu__item" href="#">
+            <a class="app-menu__item" href="{{url('ingreso-documentos')}}">
                 <i class="app-menu__icon fa fa-file-text"></i>
                 <span class="app-menu__label">Ingreso de documentos</span>
             </a>

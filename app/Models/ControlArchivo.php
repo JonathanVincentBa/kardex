@@ -15,7 +15,6 @@ class ControlArchivo extends Model implements Auditable
 
     protected $fillable = [
         'cliente_id',
-        'servicio_id',
         'tipo_servicio_id',
         'carpeta',
         'asunto',

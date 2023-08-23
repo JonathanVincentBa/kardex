@@ -6,11 +6,13 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
 <!-- Font-icon css-->
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <link href="{{asset('../css/fontawesome.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('../css/brands.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('../css/solid.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('../css/scrumboard.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('../css/notes.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('../css/bootstrap.css')}}"rel="stylesheet" type="text/css" >
 
 
 <!-- Fonts -->
@@ -34,27 +36,5 @@
 </style>
 
 @livewireStyles
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">

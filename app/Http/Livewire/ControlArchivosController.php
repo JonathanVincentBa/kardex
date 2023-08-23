@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class ControlArchivosController extends Component
 {
-    public $clientes = null, $tipos = null, $carpeta, $asunto, $status, $selectedCliente = null, $selectedTipo, $codigo = null;
+    public $clientes = null, $tipos = null, $carpeta, $asunto, $status, $selectedCliente = null, $selectedTipo = null, $codigo = null;
 
     public function mount()
     {
@@ -52,8 +52,10 @@ class ControlArchivosController extends Component
     public function updatedselectedTipo($tipoId)
     {
         $this->codigo = ControlArchivo::withTrashed()
-                                     ->where('cliente_id',$this->selectedCliente)
-                                     ->where('tipo_servicio_id', $tipoId)
-                                     ->count();
+                                        ->where('cliente_id',$this->selectedCliente)
+                                        ->where('tipo_servicio_id', $tipoId)
+                                        ->count();
     }
+
+    
 }

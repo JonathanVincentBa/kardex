@@ -17,11 +17,11 @@
                                     <select wire:model='selectedCliente' id="cliente" class="form-control">
                                         <option value="" disabled selected>SELECIONAR UN CLIENTE</option>
                                         @foreach ($clientes as $cliente)
-                                        <option value="{{ $cliente->id }}">{{ $cliente->nombre }}</option>
+                                            <option value="{{ $cliente->id }}">{{ $cliente->nombre }}</option>
                                         @endforeach
                                     </select>
-                                    @error('cliente')
-                                    <span class="text-danger er">{{ $message }}</span>
+                                    @error('cliente_id')
+                                        <span class="text-danger er">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -46,12 +46,12 @@
                                 <select wire:model='selectedTipo' id="tipo" class="form-control">
                                     <option value="" disabled selected>SELECCIONE UN SERVICIO</option>
                                     @foreach ($tipos as $tipo)
-                                    <option value=" {{ $tipo->id }}">{{ $tipo->codigo }} -
-                                        {{ $tipo->nombre }} </option>
+                                        <option value=" {{ $tipo->id }}">{{ $tipo->codigo }} -
+                                            {{ $tipo->nombre }} </option>
                                     @endforeach
                                 </select>
-                                @error('cliente')
-                                <span class="text-danger er">{{ $message }}</span>
+                                @error('cliente_id')
+                                    <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -69,7 +69,8 @@
                                     Carpeta
                                 </span>
                             </div>
-                            <input type="text" value="{{ $codigo }}" class="form-control text-center" disabled>
+                            <input type="text" value="{{ number_format($codigo) }}" class="form-control text-center"
+                                disabled>
                         </div>
                     </div>
                 </div>

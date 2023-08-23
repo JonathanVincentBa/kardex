@@ -3,6 +3,7 @@
 use App\Http\Livewire\ClientesController;
 use App\Http\Livewire\ContactoClientesController;
 use App\Http\Livewire\ControlArchivosController;
+use App\Http\Livewire\IngresoDocumentosController;
 use App\Http\Livewire\ServiciosController;
 use App\Http\Livewire\TipoServiciosController;
 use Illuminate\Support\Facades\Auth;
@@ -37,3 +38,5 @@ Route::get('/servicios', ServiciosController::class);
 Route::get('/tipo-servicios', TipoServiciosController::class);
 
 Route::get('/control-archivos', ControlArchivosController::class);
+
+Route::get('/ingreso-documentos', IngresoDocumentosController::class);
