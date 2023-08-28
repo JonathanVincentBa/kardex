@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ingreso_documentos', function (Blueprint $table) {
             $table->id();
-            $table->integer('recibidoPor');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('remitente',100);
             $table->text('detalle',500);
             $table->string('destinatario',255);

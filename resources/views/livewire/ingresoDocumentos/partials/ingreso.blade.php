@@ -9,15 +9,15 @@
                 </div>
                 <div class="row">
                     <label for="">Recibido Por:</label>
-                    <input wire:model="user" class="form-control" type="text" value="{{ Auth::user()->name }}" disabled>
+                    <input class="form-control" type="text" value="{{ Auth::user()->name }}" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();" disabled>
                 </div>
                 <div class="row">
                     <label for="">Empresa:</label>
-                    <input wire:model="empresa" class="form-control" type="text" value="Empresa">
+                    <input wire:model="empresa" class="form-control" type="text" value="Empresa" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();">
                 </div>
                 <div class="row">
                     <label for="">Destino Final:</label>
-                    <input wire:model="destino" class="form-control" type="text" value="Destino final">
+                    <input wire:model="destino" class="form-control" type="text" value="Destino final" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();">
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@
             <h5 class="text-center mb-2">ASUNTO O MOTIVO DE LA CARPETA</h5>
             <div class="container">
                 <div class="row">
-                    <textarea wire:model="asunto" class="form-control" rows="3"></textarea>
+                    <textarea wire:model="asunto" class="form-control" rows="3" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();"></textarea>
                 </div>
             </div>
         </div>

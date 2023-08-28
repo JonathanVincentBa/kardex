@@ -14,7 +14,7 @@ class IngresoDocumento extends Model implements Auditable
     use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
-        'recibidoPor',
+        'user_id',
         'remitente',
         'detalle',
         'destinatario',

@@ -8,7 +8,7 @@
             @include('livewire.ingresoDocumentos.partials.detail')
         </div>
         <div class="col-sm-12 col-md-4">
-            
+
 
             <!-- Ingreso -->
             @include('livewire.ingresoDocumentos.partials.ingreso')
@@ -18,3 +18,12 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $('#cliente').select2();
+        $('#cliente').on('change', function(e) {
+            var clienteId = $('#cliente').select2("val");
+            @this.set('selectedCliente', clienteId);
+        });
+    });
+</script>

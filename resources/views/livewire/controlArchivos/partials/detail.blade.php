@@ -18,7 +18,7 @@
                                 @foreach ($controlArchivos as $item)
                                     <tr>
                                         <td>{{ $item->cliente }}</td>
-                                        <td>{{ $item->tipo }} {{ $item->carpeta }}</td>
+                                        <td>{{ $item->tipo }}-{{ $item->carpeta }}</td>
                                         <td>{{ $item->asunto }}</td>
                                         <td width="8%">
                                             <a href="javascript:void(0)" wire:click='Edit({{ $item->id }})'

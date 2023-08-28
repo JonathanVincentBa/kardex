@@ -17,11 +17,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($controlArchivos as $item)
+                                @foreach ($ingresoDocumentos as $item)
                                     <tr>
-                                        <td>{{ $item->cliente }}</td>
-                                        <td>{{ $item->tipo }} {{ $item->carpeta }}</td>
-                                        <td>{{ $item->asunto }}</td>
+                                        <td>{{ $item->created_at }}</td>
+                                        <td>{{ $item->remitente }}</td>
+                                        <td>{{ $item->detalle }}</td>
+                                        <td>{{ $item->destinatario }}</td>
+                                        <td>{{ $item->user }}</td>
                                         <td width="8%">
                                             <a href="javascript:void(0)" wire:click='Edit({{ $item->id }})'
                                                 class="btn btn-dark mtmobile" title="Edit">
@@ -34,7 +36,7 @@
                                             </a>
                                         </td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

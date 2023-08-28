@@ -58,4 +58,34 @@ class ControlArchivosController extends Component
     }
 
     
+    public function saveControl()
+    {
+        if (is_null($this->selectedCliente)) {
+            $this->emit('sale-error', 'SELECCIONAR UN CLIENTE');
+            return;
+        }
+        
+        if (is_null($this->selectedTipo))
+        {
+            $this->emit('sale-error', 'SELECCIONAR UN SERVICIO');
+            return;
+        }
+
+        if (is_null($this->asunto)) {
+            $this->emit('sale-error', 'INGRESE EL ASUNTO DEL DOCUMENTO');
+            return;
+        }
+
+        $control = ControlArchivo::create([
+            'cliente_id' => $this->selectedCliente,
+            'tipo_servicio_id' => $this->selectedTipo,
+            'carpeta' => $this->codigo,
+            'asunto' => $this->asunto,
+        ]);
+
+        $this->codigo = null;
+        $this->asunto = null;
+    }
+
+    
 }
