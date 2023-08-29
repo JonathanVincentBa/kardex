@@ -5,7 +5,7 @@
             <div class="container">
                 <div class="row">
                     <label for="">Fecha y Hora: </label>
-                    <input wire:model="fechaActual" class="form-control" type="text" value="{{ $fechaActual }}" disabled>
+                    <input class="form-control" type="text" value="{{ $fechaActual }}" disabled>
                 </div>
                 <div class="row">
                     <label for="">Recibido Por:</label>
@@ -20,6 +20,19 @@
                     <input wire:model="destino" class="form-control" type="text" value="Destino final" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();">
                 </div>
             </div>
+            <div class="connect-sorting">
+                <h5 class="text-center mb-2">ASUNTO O MOTIVO DEL DOCUMENTO</h5>
+                <div class="container">
+                    <div class="row">
+                        <textarea wire:model="asunto" class="form-control" rows="3" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();"></textarea>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="row justify-content-center align-items-center col-sm-12 col-md-12 col-lg-12 mt-3">
+        <button wire:click.prevent="saveIngresoDocumentos" class="btn btn-dark btn-md btn-block">
+            Guardar F9
+        </button>
+</div>
 </div>

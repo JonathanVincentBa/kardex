@@ -12,18 +12,15 @@
 
             <!-- Ingreso -->
             @include('livewire.ingresoDocumentos.partials.ingreso')
-
-            <!-- ASUNTO -->
-            @include('livewire.ingresoDocumentos.partials.asunto')
         </div>
     </div>
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        $('#cliente').select2();
-        $('#cliente').on('change', function(e) {
-            var clienteId = $('#cliente').select2("val");
-            @this.set('selectedCliente', clienteId);
+        $('#remitente').select2();
+        $('#remitente').on('change', function(e) {
+            var remitenteId = $('#remitente').select2("val");
+            @this.set('selectedRemitente', remitenteId);
         });
     });
 </script>

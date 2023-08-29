@@ -7,26 +7,31 @@
     <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
         <div class="form-group text-center">
             <label for="nombre"><b>Seleccione una fecha desde</b></label>
-            <input wire:model=''  type="date" class = "form-control">
+            <input wire:model='desde'  type="date" class = "form-control">
             @error('name') <span class="error">{{ $message }}</span> @enderror
         </div>
     </div>
     <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
         <div class="form-group text-center">
             <label for="nombre"><b>Seleccione una fecha hasta</b></label>
-            <input type="date" class = "form-control">
+            @if (!is_null($desde))
+                <input wire:model='hasta' type="date" class = "form-control" >
+            @else
+                <input wire:model='hasta' type="date" class = "form-control"disabled>
+            @endif
+            
         </div>
     </div>
     <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
-        <div class="form-group text-center">
-            <label for="nombre"><b>Seleccione un cliente</b></label>
-            <select wire:model='selectedCliente' id="cliente" class="form-control">
-                <option value="" disabled selected>SELECIONAR UN CLIENTE</option>
-                @foreach ($clientes as $cliente)
-                    <option value="{{ $cliente->remitente }}">{{ $cliente->remitente }}</option>
+        <div  wire:ignore class="form-group text-center">
+            <label for="nombre"><b>Seleccione un remitente</b></label>
+            <select wire:model='selectedRemitente' id="remitente" class="form-control">
+                <option value="" disabled selected>SELECIONAR UN REMITENTE</option>
+                @foreach ($remitentes as $remi)
+                    <option value="{{ $remi->remitente }}">{{ $remi->remitente }}</option>
                 @endforeach
             </select>
-            @error('cliente_id')
+            @error('remitente')
                 <span class="text-danger er">{{ $message }}</span>
             @enderror
         </div>
