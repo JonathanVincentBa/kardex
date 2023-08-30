@@ -59,9 +59,10 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        $('#clienteid').select2({
-            placeholder: "Seleccione un cliente",
-            dropdownParent: $('#theModal')
+        $('#clienteid').select2();
+        $('#clienteid').on('change', function(e) {
+            var clienteId = $('#clienteid').select2("val");
+            @this.set('clienteid', clienteId);
         });
 
         window.livewire.on('contactoCliente-added', msg => {

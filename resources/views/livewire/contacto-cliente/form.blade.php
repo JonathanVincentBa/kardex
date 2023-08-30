@@ -1,11 +1,12 @@
 @include('common.modalHead')
 
-<div class="row">
+<div wire:ignore class="row">
     <div class="col-sm-6">
         <div class="form-group">
             <label>CLIENTE*</label>
             <br>
             <select wire:model='clienteid' id="clienteid" class="form-control" style="width: 100%">
+                <option value="" disabled selected>SELECIONAR UN CLIENTE</option>
                 @foreach ($clientes as $cliente)
                     <option value="{{ $cliente->id }}">{{ $cliente->nombre }}</option>
                 @endforeach
@@ -56,7 +57,7 @@
     </div>
     <div class="col-sm-4">
         <div class="form-group">
-            <label>CELULAR</label>
+            <label>CELULAR*</label>
             <input type="number" wire:model.lazy='celular' class="form-control" >
             @error('celular')
                 <span class="text-danger er">{{ $message }}</span>

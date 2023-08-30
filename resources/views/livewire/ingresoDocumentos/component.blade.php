@@ -23,4 +23,23 @@
             @this.set('selectedRemitente', remitenteId);
         });
     });
+
+    function Confirm(control) {
+
+        Swal.fire({
+            title: 'CONFIRMAR',
+            text: "CONFIRMAS ELIMINAR EL REGISTRO",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3b3f5c',
+            cancelButtonText: 'Cerrar',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Aceptar'
+        }).then((result) => {
+            if (result.value) {
+                window.livewire.emit('deleteRow', id)
+                swal.close()
+            }
+        })
+    }
 </script>

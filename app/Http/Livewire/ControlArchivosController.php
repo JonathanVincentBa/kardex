@@ -25,7 +25,7 @@ class ControlArchivosController extends Component
         
             $data = ControlArchivo::join('clientes as c', 'c.id', '=', 'control_archivos.cliente_id')
                 ->join('tipo_servicios as t', 't.id', '=', 'control_archivos.tipo_servicio_id' )
-                ->select('c.nombre as cliente', 't.codigo as tipo' ,'carpeta', 'asunto')
+                ->select('control_archivos.id as control','c.nombre as cliente', 't.codigo as tipo' ,'carpeta', 'asunto')
                 ->where('control_archivos.cliente_id', '=', $this->selectedCliente)
                 ->orderby('t.codigo')
                 ->orderby('control_archivos.carpeta')
@@ -36,7 +36,7 @@ class ControlArchivosController extends Component
         {
             $data = ControlArchivo::join('clientes as c', 'c.id', '=', 'control_archivos.cliente_id')
             ->join('tipo_servicios as t', 't.id', '=', 'control_archivos.tipo_servicio_id' )
-            ->select('c.nombre as cliente', 't.codigo as tipo' ,'carpeta', 'asunto')
+            ->select('control_archivos.id as control','c.nombre as cliente', 't.codigo as tipo' ,'carpeta', 'asunto')
             ->orderby('control_archivos.id', 'desc')
             ->get();
         }
@@ -57,6 +57,11 @@ class ControlArchivosController extends Component
                                         ->count();
     }
 
+    public function Edit(ControlArchivo $controlArchivo)
+    {
+
+        
+    }
     
     public function saveControl()
     {
@@ -87,5 +92,15 @@ class ControlArchivosController extends Component
         $this->asunto = null;
     }
 
+    protected $listeners = [
+        'deleteRow' => 'Destroy'
+    ];
+
+    public function Destroy(ControlArchivo $controlArchivo)
+    {
+        $controlArchivo->delete();
+        $this->resetUI();
+        $this->emit('controlArchivo-deleted', 'Registro Eliminado');
+    }
     
 }
