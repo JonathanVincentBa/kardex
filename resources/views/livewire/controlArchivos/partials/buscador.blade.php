@@ -43,6 +43,7 @@
                                         <i class="fa fa-search"></i>
                                     </span>
                                 </div>
+                                
                                 <select wire:model='selectedTipo' id="tipo" class="form-control">
                                     <option value="" disabled selected>SELECCIONE UN SERVICIO</option>
                                     @foreach ($tipos as $tipo)
@@ -69,8 +70,14 @@
                                     Carpeta
                                 </span>
                             </div>
-                            <input type="text" value="{{ number_format($codigo) }}" class="form-control text-center"
+                            @if (is_null($codigo))
+                            <input type="text" value="" class="form-control text-center"
+                            disabled>
+                            @else
+                                <input type="text" value="{{ number_format($codigo) }}" class="form-control text-center"
                                 disabled>
+                            @endif
+                            
                         </div>
                     </div>
                 </div>

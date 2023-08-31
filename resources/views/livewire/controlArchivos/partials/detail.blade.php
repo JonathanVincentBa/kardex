@@ -22,11 +22,12 @@
                                         <td>{{ $item->asunto }}</td>
                                         <td width="8%">
                                             <a href="javascript:void(0)" wire:click='Edit({{ $item->control }})'
+                                            <a href="javascript:void(0)" wire:click='Edit({{ $item->id }})'
                                                 class="btn btn-dark mtmobile" title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
 
-                                            <a href="javascript:void(0)" onclick="Confirm('{{ $item->control }}')"
+                                            <a href="javascript:void(0)" onclick="Confirm('{{ $item->id }}')"
                                                 class="btn btn-dark" title="Delete">
                                                 <i class="fas fa-trash"></i>
                                             </a>
