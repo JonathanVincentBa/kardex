@@ -66,7 +66,6 @@ class ControlArchivosController extends Component
         $this->selectedTipo = $record->tipo_servicio_id;
         $this->codigo = $record->carpeta;
         $this->asunto = $record->asunto;
-       
     }
     
     public function saveControl()
