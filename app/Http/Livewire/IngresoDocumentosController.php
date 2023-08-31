@@ -89,10 +89,27 @@ class IngresoDocumentosController extends Component
             'detalle' => $this->asunto,
             'destinatario' => $this->destino,
         ]);
+        $this->resetUI();
+    }
+
+    public function resetUi(){
         $fecha = Carbon::now();
         $this->fechaActual = $fecha->toDateTimeString();
         $this->empresa = null;
         $this->asunto = null;
         $this->destino = null;
+
+    }
+        
+
+    protected $listeners = [
+        'deleteRow' => 'Destroy'
+    ];
+
+    public function Destroy(IngresoDocumento $ingresoDocumento)
+    {
+        $ingresoDocumento->delete();
+        $this->resetUI();
+        $this->emit('ingresoDocumento-deleted', 'Registro Eliminado');
     }
 }

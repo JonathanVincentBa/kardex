@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class ControlArchivosController extends Component
 {
-    public $clientes = null, $tipos = null, $carpeta, $asunto, $status, $selectedCliente = null, $selectedTipo = null, $codigo = null;
+    public $clientes = null, $tipos = null, $asunto, $selectedCliente = null, $selectedTipo = null, $codigo = null;
 
     public function mount()
     {
@@ -19,24 +19,23 @@ class ControlArchivosController extends Component
 
     public function render()
     {
-        
+             
 
         if (strlen($this->selectedCliente) > 0) {
-        
+               
             $data = ControlArchivo::join('clientes as c', 'c.id', '=', 'control_archivos.cliente_id')
                 ->join('tipo_servicios as t', 't.id', '=', 'control_archivos.tipo_servicio_id' )
-                ->select('control_archivos.id as control','c.nombre as cliente', 't.codigo as tipo' ,'carpeta', 'asunto')
+                ->select('control_archivos.id','c.nombre as cliente', 't.codigo as tipo' ,'carpeta', 'asunto')
                 ->where('control_archivos.cliente_id', '=', $this->selectedCliente)
                 ->orderby('t.codigo')
                 ->orderby('control_archivos.carpeta')
                 ->get();
-
         }
         else
         {
             $data = ControlArchivo::join('clientes as c', 'c.id', '=', 'control_archivos.cliente_id')
             ->join('tipo_servicios as t', 't.id', '=', 'control_archivos.tipo_servicio_id' )
-            ->select('control_archivos.id as control','c.nombre as cliente', 't.codigo as tipo' ,'carpeta', 'asunto')
+            ->select('control_archivos.id','c.nombre as cliente', 't.codigo as tipo' ,'carpeta', 'asunto')
             ->orderby('control_archivos.id', 'desc')
             ->get();
         }
@@ -88,8 +87,20 @@ class ControlArchivosController extends Component
             'asunto' => $this->asunto,
         ]);
 
+        $this->resetUI();
+    }
+    
+    public function resetUi(){
+        $this->clientes = null;
+        $this->tipos = null;
+        $this->selectedTipo;
         $this->codigo = null;
         $this->asunto = null;
+    }
+        
+    public function updatingClientes() {
+        $this->clientes = Cliente::orderBy('nombre', 'asc')->get();
+        $this->tipos = TipoServicio::orderBy('codigo', 'asc')->get();
     }
 
     protected $listeners = [
