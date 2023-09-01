@@ -9,19 +9,19 @@ use Livewire\Component;
 
 class ControlArchivosController extends Component
 {
-    public $clientes = null, $tipos = null, $asunto, $selectedCliente = null, $selectedTipo = null, $codigo = null;
+    public $clientes = [], $tipos = [], $asunto = "", $selectedCliente = "", $selectedTipo = "", $codigo ="", $selected_id = "";
 
     public function mount()
     {
+        
         $this->clientes = Cliente::orderBy('nombre', 'asc')->get();
         $this->tipos = TipoServicio::orderBy('codigo', 'asc')->get();
+        
     }
 
     public function render()
     {
-             
-
-        if (strlen($this->selectedCliente) > 0) {
+        if ($this->selectedCliente <> "") {
                
             $data = ControlArchivo::join('clientes as c', 'c.id', '=', 'control_archivos.cliente_id')
                 ->join('tipo_servicios as t', 't.id', '=', 'control_archivos.tipo_servicio_id' )
@@ -39,6 +39,8 @@ class ControlArchivosController extends Component
             ->orderby('control_archivos.id', 'desc')
             ->get();
         }
+
+       // dd($this->selectedTipo, $this->selectedTipo, $data);
         return view('livewire.controlArchivos.component', 
             [
                 'controlArchivos' => $data,
@@ -48,6 +50,19 @@ class ControlArchivosController extends Component
     }
 
 
+    public function Edit($id)
+    {
+        $record = ControlArchivo::find($id);
+
+        $this->selected_id = $record->id;
+        $this->selectedCliente = $record->cliente_id;
+        $this->selectedTipo = $record->tipo_servicio_id;
+        $this->codigo = $record->carpeta;
+        $this->asunto = $record->asunto;
+        $this->emit('updateSelect2Servicio');
+        
+    }
+
     public function updatedselectedTipo($tipoId)
     {
         $this->codigo = ControlArchivo::withTrashed()
@@ -56,11 +71,15 @@ class ControlArchivosController extends Component
                                         ->count();
     }
 
-    public function Edit(ControlArchivo $controlArchivo)
+    public function updateCliente($id)
     {
-
+        $this->reset();
+        $this->selectedCliente = $id;
+        $this->emit('updateSelect2Servicio');
         
     }
+
+
     
     public function saveControl()
     {
@@ -89,19 +108,31 @@ class ControlArchivosController extends Component
 
         $this->resetUI();
     }
-    
-    public function resetUi(){
-        $this->clientes = null;
-        $this->tipos = null;
-        $this->selectedTipo;
-        $this->codigo = null;
-        $this->asunto = null;
-    }
+
+    public function actualizarControl()
+    {
+        if (is_null($this->selectedTipo))
+        {
+            $this->emit('sale-error', 'SELECCIONAR UN SERVICIO');
+            return;
+        }
+
+        if (is_null($this->asunto)) {
+            $this->emit('sale-error', 'INGRESE EL ASUNTO DEL DOCUMENTO');
+            return;
+        }
+        $control = ControlArchivo::find($this->selected_id);
+        $control->update([
+            'tipo_servicio_id' => $this->selectedTipo,
+            'carpeta' => $this->codigo,
+            'asunto' => $this->asunto,
+        ]);
+
         
-    public function updatingClientes() {
-        $this->clientes = Cliente::orderBy('nombre', 'asc')->get();
-        $this->tipos = TipoServicio::orderBy('codigo', 'asc')->get();
+
+        $this->resetUI();
     }
+    
 
     protected $listeners = [
         'deleteRow' => 'Destroy'
@@ -110,8 +141,9 @@ class ControlArchivosController extends Component
     public function Destroy(ControlArchivo $controlArchivo)
     {
         $controlArchivo->delete();
-        $this->resetUI();
+        $this->resetExcept('selectedCliente');
         $this->emit('controlArchivo-deleted', 'Registro Eliminado');
+        $this->emit('updateSelect2Servicio');
     }
     
 }

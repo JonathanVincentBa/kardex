@@ -2,7 +2,7 @@
     <div class="connect-sorting-content">
         <div class="car simple-title-task ui-sortable-handle">
             <div class="car-body">
-                @if (!is_null($selectedCliente))
+                @if ($selectedCliente != '')
                     <div class="table-responsive tblscroll"
                         style="max-height: 499px; overflow-y: scroll; overflow-y: auto;">
                         <table class="table table-bordered table-striped mt-1">
@@ -21,15 +21,15 @@
                                         <td>{{ $item->tipo }}-{{ $item->carpeta }}</td>
                                         <td>{{ $item->asunto }}</td>
                                         <td width="8%">
-                                            <a href="javascript:void(0)" wire:click='Edit({{ $item->id }})'
+                                            <button type="button" wire:click='Edit({{ $item->id }})'
                                                 class="btn btn-dark mtmobile" title="Edit">
                                                 <i class="fas fa-edit"></i>
-                                            </a>
+                                            </button>
 
-                                            <a href="javascript:void(0)" onclick="Confirm('{{ $item->id }}')"
+                                            <button type="button" onclick="Confirm('{{ $item->id }}')"
                                                 class="btn btn-dark" title="Delete">
                                                 <i class="fas fa-trash"></i>
-                                            </a>
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -46,4 +46,30 @@
             </div>
         </div>
     </div>
+    @push('scripts')
+        <script>
+            function Confirm(control) {
+
+                Swal.fire({
+                    title: 'CONFIRMAR',
+                    text: "CONFIRMAS ELIMINAR EL REGISTRO",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3b3f5c',
+                    cancelButtonText: 'Cerrar',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.value) {
+                        window.livewire.emit('deleteRow', control)
+                        swal.close()
+                    }
+                })
+            }
+
+            function noty(msg) {
+                console.log(msg);
+            }
+        </script>
+    @endpush
 </div>

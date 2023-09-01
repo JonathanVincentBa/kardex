@@ -93,4 +93,9 @@
             }
         })
     }
+
+    function noty(msg)
+    {
+        console.log(msg);
+    }
 </script>

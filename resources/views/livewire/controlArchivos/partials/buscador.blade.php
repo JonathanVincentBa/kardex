@@ -14,7 +14,7 @@
                                             <i class="fa fa-search"></i>
                                         </span>
                                     </div>
-                                    <select wire:model='selectedCliente' id="cliente" class="form-control">
+                                    <select id="cliente" class="form-control">
                                         <option value="" disabled selected>SELECIONAR UN CLIENTE</option>
                                         @foreach ($clientes as $cliente)
                                             <option value="{{ $cliente->id }}">{{ $cliente->nombre }}</option>
@@ -43,11 +43,11 @@
                                         <i class="fa fa-search"></i>
                                     </span>
                                 </div>
-                                
-                                <select wire:model='selectedTipo' id="tipo" class="form-control">
-                                    <option value="" disabled selected>SELECCIONE UN SERVICIO</option>
+
+                                <select id="tipo" class="form-control"
+                                    data-placeholder="SELECCIONE UN SERVICIO">
                                     @foreach ($tipos as $tipo)
-                                        <option value=" {{ $tipo->id }}">{{ $tipo->codigo }} -
+                                        <option value="{{ $tipo->id }}">{{ $tipo->codigo }} -
                                             {{ $tipo->nombre }} </option>
                                     @endforeach
                                 </select>
@@ -70,14 +70,13 @@
                                     Carpeta
                                 </span>
                             </div>
-                            @if (is_null($codigo))
-                            <input type="text" value="" class="form-control text-center"
-                            disabled>
+                            @if ($codigo > 0)
+                                <input type="text" value="vacio" class="form-control text-center" disabled>
                             @else
-                                <input type="text" value="{{ number_format($codigo) }}" class="form-control text-center"
-                                disabled>
+                                <input type="text" value="{{ $codigo }}" class="form-control text-center"
+                                    disabled>
                             @endif
-                            
+
                         </div>
                     </div>
                 </div>

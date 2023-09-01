@@ -34,7 +34,7 @@
                                         </a>
 
                                         <a href="javascript:void(0)"
-                                            onclick="Confirm('{{ $cliente->id }}','{{$cliente->contacto_clientes->count()}}')"
+                                            onclick="Confirm('{{ $cliente->id }}','{{ $cliente->contacto_clientes->count() }}')"
                                             class="btn btn-dark" title="Delete">
                                             <i class="fas fa-trash"></i>
                                         </a>
@@ -106,7 +106,22 @@
             }
         })
 
-
+        function noty(msg, option = 1) {
+            Snackbar.show({
+                text: msg.toUpperCase(),
+                actionText: 'CERRAR',
+                actionTextColor: '#fff',
+                backgroundColor: option == 1 ? '#3b3f5c' : '#e7515a',
+                pos: 'top-rigth'
+            });
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
 
 
 

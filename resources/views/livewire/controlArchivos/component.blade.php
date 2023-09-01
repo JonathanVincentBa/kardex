@@ -16,64 +16,40 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        window.livewire.on('controlArchivo-added', msg => {
-            $('#theModal').modal('hide');
-            noty(msg)
-        })
-        window.livewire.on('controlArchivo-updated', msg => {
-            $('#theModal').modal('hide');
-            noty(msg)
-        })
-        window.livewire.on('controlArchivo-deleted', msg => {
-            noty(msg)
-        })
-        window.livewire.on('hide-modal', msg => {
-            $('#theModal').modal('hide');
+@section('scripts')
+    <script>
+        document.addEventListener('livewire:load', function() {
 
-        })
-        window.livewire.on('show-modal', msg => {
-            $('#theModal').modal('show');
+            const servicioSelect2 = $('#tipo');
 
-        })
-        window.livewire.on('hidden.bs.modal', msg => {
-            $('.er').css('display', 'none');
+            $('#cliente').select2().val(@this.get('selectedCliente')).trigger('change');
 
-        })
-    });
+            $('#cliente').on('change', function(e) {
+                var clienteId = $('#cliente').select2("val");
+                @this.updateCliente(clienteId);
+            });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        $('#cliente').select2();
-        $('#cliente').on('change', function(e) {
-            var clienteId = $('#cliente').select2("val");
-            @this.set('selectedCliente', clienteId);
+
+
+
+            console.log("Cliente id: ", @this.get('selectedCliente'), "selet servicio id: ", @this.get(
+                'selectedTipo'));
+            servicioSelect2.select2();
+            servicioSelect2.val(@this.get('selectedTipo')).trigger('change');
+            servicioSelect2.on('change', function() {
+                var tipoId = servicioSelect2.select2("val");
+                @this.set('selectedTipo', tipoId);
+            });
+
+
+
+            livewire.on('updateSelect2Servicio', function() {
+                servicioSelect2.val(@this.get('selectedTipo')).trigger('change');
+            })
+
+
+
         });
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-        $('#tipo').select2();
-        $('#tipo').on('change', function() {
-            var tipoId = $('#tipo').select2("val");
-            @this.set('selectedTipo', tipoId);
-        });
-    });
-
-    function Confirm(control) {
-
-        Swal.fire({
-            title: 'CONFIRMAR',
-            text: "CONFIRMAS ELIMINAR EL REGISTRO",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3b3f5c',
-            cancelButtonText: 'Cerrar',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Aceptar'
-        }).then((result) => {
-            if (result.value) {
-                window.livewire.emit('deleteRow', control)
-                swal.close()
-            }
-        })
-    }
-</script>
+    </script>
+    @stack('scripts')
+@endsection
