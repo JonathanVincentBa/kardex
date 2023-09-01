@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class ControlArchivosController extends Component
 {
-    public $clientes = [], $tipos = [], $asunto = "", $selectedCliente = "", $selectedTipo = "", $codigo ="", $selected_id = "";
+    public $clientes = [], $tipos = [], $carpeta, $asunto = "", $status, $selectedCliente = "", $selectedTipo = "", $codigo ="", $selected_id = "";
 
     public function mount()
     {
@@ -30,6 +30,7 @@ class ControlArchivosController extends Component
                 ->orderby('t.codigo')
                 ->orderby('control_archivos.carpeta')
                 ->get();
+
         }
         else
         {
@@ -71,12 +72,14 @@ class ControlArchivosController extends Component
                                         ->count();
     }
 
-    public function updateCliente($id)
+    public function Edit(ControlArchivo $controlArchivo)
     {
-        $this->reset();
-        $this->selectedCliente = $id;
-        $this->emit('updateSelect2Servicio');
+
         
+        $this->selectedCliente = $record->cliente_id; 
+        $this->selectedTipo = $record->tipo_servicio_id;
+        $this->codigo = $record->carpeta;
+        $this->asunto = $record->asunto;
     }
 
 
@@ -140,8 +143,9 @@ class ControlArchivosController extends Component
 
     public function Destroy(ControlArchivo $controlArchivo)
     {
+        
         $controlArchivo->delete();
-        $this->resetExcept('selectedCliente');
+        $this->resetUI();
         $this->emit('controlArchivo-deleted', 'Registro Eliminado');
         $this->emit('updateSelect2Servicio');
     }
