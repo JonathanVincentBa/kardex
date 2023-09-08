@@ -60,7 +60,7 @@ class ClientesController extends Component
 
 
 
-    public function Store()
+    public function updatedNombre()
     {
         $cod = '';
         $cont = 0;
@@ -130,7 +130,10 @@ class ClientesController extends Component
                 }
             }
         }
+    }
 
+    public function Store()
+    {
         $rules = [
             'codigo' => 'required|unique:clientes|min:3|max:4',
             'nombre' => 'required',
@@ -173,7 +176,6 @@ class ClientesController extends Component
         $this->resetUI();
         $this->emit('cliente-added', 'Cliente Registrado');
     }
-
     public function Update()
     {
 

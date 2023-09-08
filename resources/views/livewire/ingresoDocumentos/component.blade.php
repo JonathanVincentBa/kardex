@@ -16,12 +16,45 @@
     </div>
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        $('#remitente').select2();
-        $('#remitente').on('change', function(e) {
-            var remitenteId = $('#remitente').select2("val");
+    document.addEventListener('livewire:load', function() {
+        const remitenteSelect2 = $('#remitente')
+        remitenteSelect2.select2();
+        remitenteSelect2.on('change', function(e) {
+            var remitenteId = remitenteSelect2.select2("val");
             @this.set('selectedRemitente', remitenteId);
         });
+
+        livewire.on('errorFecha', msg => {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: msg,
+                showConfirmButton: false,
+                timer: 1500
+            })
+        })
+        livewire.on('ingreso-added', msg => {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: msg,
+                showConfirmButton: false,
+                timer: 1500
+            })
+        })
+        livewire.on('ingreso-updated', msg => {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: msg,
+                showConfirmButton: false,
+                timer: 1500
+            })
+        })
+
+        livewire.on('updateSelect2Remitente', function() {
+            remitenteSelect2.val(@this.get('selectedRemitente')).trigger('change');
+        })
     });
 
     function Confirm(control) {

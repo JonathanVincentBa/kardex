@@ -14,9 +14,6 @@ return new class extends Migration
         Schema::create('kardexes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('control_archivo_id')->constrained('control_archivos');
-            $table->integer('cliente_id');
-            $table->integer('servicio');
-            $table->integer('tipo_servicio');
             $table->string('destinatario');
             $table->text('descripcion',500);
             $table->integer('enviadoPor');

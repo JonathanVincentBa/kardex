@@ -79,6 +79,16 @@
         })
     });
 
+    function noty(msg) {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: msg,
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+
     function Confirm(id, contacto_clientes) {
         if (contacto_clientes > 0) {
             Swal.fire({

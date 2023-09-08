@@ -90,6 +90,16 @@
         })
     });
 
+    function noty(msg) {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: msg,
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+
     function Confirm(id) {
 
         Swal.fire({

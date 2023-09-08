@@ -108,7 +108,7 @@ class ControlArchivosController extends Component
             'asunto' => $this->asunto,
         ]);
 
-        $this->resetUI();
+        $this->resetExcept('selectedCliente');
     }
 
     public function actualizarControl()
@@ -132,7 +132,7 @@ class ControlArchivosController extends Component
 
         
 
-        $this->resetUI();
+        $this->resetExcept('selectedCliente');
     }
     
 

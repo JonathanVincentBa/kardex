@@ -50,31 +50,42 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        window.livewire.on('servicio-added', msg => {
+    document.addEventListener('livewire:load', function() {
+       window.livewire.on('servicio-added', msg => {
             $('#theModal').modal('hide');
             noty(msg)
         })
-        window.livewire.on('servicio-updated', msg => {
+       window.livewire.on('servicio-updated', msg => {
             $('#theModal').modal('hide');
             noty(msg)
+            
         })
-        window.livewire.on('servicio-deleted', msg => {
+       window.livewire.on('servicio-deleted', msg => {
             noty(msg)
         })
-        window.livewire.on('hide-modal', msg => {
+       window.livewire.on('hide-modal', msg => {
             $('#theModal').modal('hide');
 
         })
-        window.livewire.on('show-modal', msg => {
+       window.livewire.on('show-modal', msg => {
             $('#theModal').modal('show');
 
         })
-        window.livewire.on('hidden.bs.modal', msg => {
+       window.livewire.on('hidden.bs.modal', msg => {
             $('.er').css('display', 'none');
 
         })
     });
+    
+    function noty(msg) {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: msg,
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
 
     function Confirm(id) {
         Swal.fire({
@@ -94,8 +105,5 @@
         })
     }
 
-    function noty(msg)
-    {
-        console.log(msg);
-    }
+    
 </script>

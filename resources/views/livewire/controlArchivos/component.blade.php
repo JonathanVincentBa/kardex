@@ -46,10 +46,16 @@
             livewire.on('updateSelect2Servicio', function() {
                 servicioSelect2.val(@this.get('selectedTipo')).trigger('change');
             })
-
-
-
         });
+        function noty(msg) {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: msg,
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
     </script>
     @stack('scripts')
 @endsection

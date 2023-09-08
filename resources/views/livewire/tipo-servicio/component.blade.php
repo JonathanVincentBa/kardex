@@ -15,9 +15,9 @@
                     <table class="table table-bordered table striped mt-1">
                         <thead class="text-white" style="background: #3b3f5c;">
                             <tr>
-                                <th class="table-th text-wite">Servicio</th>
-                                <th class="table-th text-wite">Codigo</th>
                                 <th class="table-th text-wite">Nombre</th>
+                                <th class="table-th text-wite">Codigo</th>
+                                <th class="table-th text-wite">Servicio</th>
                                 <th class="table-th text-wite">Acciones</th>
                             </tr>
                         </thead>
@@ -77,6 +77,16 @@
 
         })
     });
+
+    function noty(msg) {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: msg,
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
 
     function Confirm(id) {
         Swal.fire({

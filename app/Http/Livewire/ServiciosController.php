@@ -53,13 +53,12 @@ class ServiciosController extends Component
     public function Store()
     {
         $rules = [
-            'codigo' => 'required|unique:servicios|min:3|max:4',
+            'codigo' => 'required|unique:servicios|max:4',
             'nombre' => 'required'
         ];
         $messages = [
             'codigo.required' => 'Codigo de servicio es requerido',
             'codigo.unique' => 'Ya existe ese codigo de servicio',
-            'codigo.min' => 'El codigo de debe tener al menos 3 caracteres',
             'codigo.max' => 'El codigo de debe tener no más de 4 caracteres',
             'nombre.required' => 'Nombre de servicio es requerido'
         ];
@@ -80,7 +79,6 @@ class ServiciosController extends Component
         $rules = [
             'codigo' => [
                 'required',
-                'min:3',
                 'max:4',
                 'unique:clientes,codigo,'
                     . $this->selected_id
@@ -90,7 +88,6 @@ class ServiciosController extends Component
         $messages = [
             'codigo.required' => 'Codigo de servicio es requerido',
             'codigo.unique' => 'Ya existe ese codigo de servicio',
-            'codigo.min' => 'El codigo de debe tener al menos 3 caracteres',
             'codigo.max' => 'El codigo de debe tener no más de 4 caracteres',
             'nombre.required' => 'Nombre de servicio es requerido'
         ];
@@ -104,7 +101,7 @@ class ServiciosController extends Component
         ]);
 
         $this->resetUI();
-        $this->emit('servicio-updated', 'Servicio Registrado');
+        $this->emit('servicio-updated', 'Servicio Actualizado');
     }
 
     public function resetUI()

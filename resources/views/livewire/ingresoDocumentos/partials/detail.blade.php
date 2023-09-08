@@ -48,10 +48,10 @@
                                                 <i class="fas fa-edit"></i>
                                             </a>
 
-                                            <a href="javascript:void(0)" onclick="Confirm('{{ $item->id }}')"
+                                            {{-- <a href="javascript:void(0)" onclick="Confirm('{{ $item->id }}')"
                                                 class="btn btn-dark" title="Delete">
                                                 <i class="fas fa-trash"></i>
-                                            </a>
+                                            </a> --}}
                                         </td>
                                     </tr>
                                 @endforeach

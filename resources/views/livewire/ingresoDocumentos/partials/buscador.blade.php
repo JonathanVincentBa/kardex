@@ -28,7 +28,7 @@
             <select wire:model='selectedRemitente' id="remitente" class="form-control">
                 <option value="" disabled selected>SELECIONAR UN REMITENTE</option>
                 @foreach ($remitentes as $remi)
-                    <option value="{{ $remi->remitente }}">{{ $remi->remitente }}</option>
+                    <option value="{{$remi->remitente}}">{{ $remi->remitente }}</option>
                 @endforeach
             </select>
             @error('remitente')

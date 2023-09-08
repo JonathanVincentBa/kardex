@@ -15,9 +15,6 @@ class Kardex extends Model implements Auditable
 
     protected $fillable = [
         'control_archivo_id',
-        'cliente_id',
-        'servicio',
-        'tipo_servicio',
         'destinatario',
         'descripcion',
         'enviadoPor',

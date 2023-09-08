@@ -9,30 +9,45 @@
                 </div>
                 <div class="row">
                     <label for="">Recibido Por:</label>
-                    <input class="form-control" type="text" value="{{ Auth::user()->name }}" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();" disabled>
+                    <input wire:model='user' class="form-control" type="text" value=""
+                        style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                        disabled>
                 </div>
                 <div class="row">
                     <label for="">Empresa:</label>
-                    <input wire:model="empresa" class="form-control" type="text" value="Empresa" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();">
+                    <input wire:model="empresa" class="form-control" type="text" value="Empresa"
+                        style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                 </div>
                 <div class="row">
                     <label for="">Destino Final:</label>
-                    <input wire:model="destino" class="form-control" type="text" value="Destino final" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();">
+                    <input wire:model="destino" class="form-control" type="text" value="Destino final"
+                        style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                 </div>
             </div>
             <div class="connect-sorting">
                 <h5 class="text-center mb-2">ASUNTO O MOTIVO DEL DOCUMENTO</h5>
                 <div class="container">
                     <div class="row">
-                        <textarea wire:model="asunto" class="form-control" rows="3" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();"></textarea>
+                        <textarea wire:model="asunto" class="form-control" rows="3" style="text-transform:uppercase;"
+                            onkeyup="javascript:this.value=this.value.toUpperCase();"></textarea>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row justify-content-center align-items-center col-sm-12 col-md-12 col-lg-12 mt-3">
-        <button wire:click.prevent="saveIngresoDocumentos" class="btn btn-dark btn-md btn-block">
-            Guardar F9
-        </button>
-</div>
+    @if ($select_id > 0) 
+        <div class="row justify-content-center align-items-center col-sm-12 col-md-12 col-lg-12 mt-3">
+            <button wire:click.prevent="actualizarIngresoDocumentos" class="btn btn-dark btn-md btn-block">
+                Actualizar F9
+            </button>
+        </div>
+        
+        
+    @else 
+        <div class="row justify-content-center align-items-center col-sm-12 col-md-12 col-lg-12 mt-3">
+            <button wire:click.prevent="saveIngresoDocumentos" class="btn btn-dark btn-md btn-block">
+                Guardar F9
+            </button>
+        </div>
+    @endif
 </div>
