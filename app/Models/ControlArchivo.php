@@ -25,4 +25,8 @@ class ControlArchivo extends Model implements Auditable
     {
         return $this->belongsTo(Cliente::class);
     }
+    public function kardexes()
+    {
+        return $this->hasMany(Kardex::class);
+    }
 }

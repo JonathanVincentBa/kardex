@@ -20,8 +20,8 @@ class Kardex extends Model implements Auditable
         'enviadoPor',
     ];
 
-    public function clientes()
+    public function control_archivos()
     {
-        return $this->belongsTo(Cliente::class);
+        return $this->belongsTo(ControlArchivo::class);
     }
 }

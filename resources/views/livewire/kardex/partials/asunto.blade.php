@@ -29,35 +29,33 @@
                 </div>
 
             </div>
-            @if ($servicios->count() != 0)
-                <h5 class="text-center mb-2">SERVICIOS</h5>
-                <div class="car-body">
-                    <div class="task-header">
-                        <div class="row justify-content-between">
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div wire:ignore class="input-group mb-4" width="100%">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text input-gp">
-                                            <i class="fa fa-search"></i>
-                                        </span>
-                                    </div>
-                                    <select wire:model='servicio' id="tipo" class="form-control"
-                                        data-placeholder="SELECCIONE UN CLIENTE PRIMERO">
-                                        <option value="">SELECCIONE UN SERVICIO</option>
-                                        @foreach ($servicios as $servicio)
-                                            <option value="{{ $servicio->id }}">{{ $servicio->codigo }} -
-                                                {{ $servicio->carpeta }} </option>
-                                        @endforeach
-                                    </select>
-                                    @error('cliente_id')
-                                        <span class="text-danger er">{{ $message }}</span>
-                                    @enderror
+
+            <h5 class="text-center mb-2">SERVICIOS</h5>
+            <div class="car-body">
+                <div class="task-header">
+                    <div class="row justify-content-between">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="input-group mb-4" width="100%">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text input-gp">
+                                        <i class="fa fa-search"></i>
+                                    </span>
                                 </div>
+                                <select wire:model='servicio' id="tipo" class="form-control"
+                                    data-placeholder="SELECCIONE UN CLIENTE PRIMERO">
+                                    @foreach ($servicios as $servicio)
+                                        <option value="{{ $servicio->id }}">{{ $servicio->codigo }} -
+                                            {{ $servicio->carpeta }} </option>
+                                    @endforeach
+                                </select>
+                                @error('cliente_id')
+                                    <span class="text-danger er">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
                 </div>
-            @endif
+            </div>
             @if (!is_null($servicio))
                 <div class="connect-sorting-content">
                     <div class="card simple-title-task ui-sortable-handle">
