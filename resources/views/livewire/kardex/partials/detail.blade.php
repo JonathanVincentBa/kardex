@@ -14,25 +14,37 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($kardexes as $item)
-                                <tr>
-                                    <td>{{ $item->cliente }}</td>
-                                    <td>{{ $item->tipo }}-{{ $item->carpeta }}</td>
-                                    <td>{{ $item->destinatario }}</td>
-                                    <td>{{ $item->enviadoPor }}</td>
-                                    <td width="8%">
-                                        <button type="button" wire:click='Edit({{ $item->id }})'
-                                            class="btn btn-dark mtmobile" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-
-                                        {{-- <button type="button" onclick="Confirm('{{ $item->id }}')"
-                                                class="btn btn-dark" title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button> --}}
-                                    </td>
-                                </tr>
-                            @endforeach
+                            @if (!strlen($desde))
+                                @foreach ($cartas as $item)
+                                    <tr>
+                                        <td>{{ $item->cliente }}</td>
+                                        <td>{{ $item->tipo }}-{{ $item->carpeta }}</td>
+                                        <td>{{ $item->destinatario }}</td>
+                                        <td>{{ $item->enviadoPor }}</td>
+                                        <td width="8%">
+                                            <button type="button" wire:click='Edit({{ $item->id }})'
+                                                class="btn btn-dark mtmobile" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                @foreach ($kardexes as $item)
+                                    <tr>
+                                        <td>{{ $item->cliente }}</td>
+                                        <td>{{ $item->tipo }}-{{ $item->carpeta }}</td>
+                                        <td>{{ $item->destinatario }}</td>
+                                        <td>{{ $item->enviadoPor }}</td>
+                                        <td width="8%">
+                                            <button type="button" wire:click='Edit({{ $item->id }})'
+                                                class="btn btn-dark mtmobile" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

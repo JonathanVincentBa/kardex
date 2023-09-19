@@ -30,10 +30,6 @@
             });
 
 
-
-
-            console.log("Cliente id: ", @this.get('selectedCliente'), "selet servicio id: ", @this.get(
-                'selectedTipo'));
             servicioSelect2.select2();
             servicioSelect2.val(@this.get('selectedTipo')).trigger('change');
             servicioSelect2.on('change', function() {

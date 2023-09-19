@@ -28,6 +28,7 @@
             </div>
         </div>
     </main>
+    
     <!-- Essential javascripts for application to work-->
     @include('layouts.theme.scripts')
     @yield('scripts')

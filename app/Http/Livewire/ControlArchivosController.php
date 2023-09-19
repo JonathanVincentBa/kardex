@@ -10,6 +10,7 @@ use Livewire\Component;
 class ControlArchivosController extends Component
 {
     public $clientes = [], $tipos = [], $asunto = "", $selectedCliente = "", $selectedTipo = "", $codigo ="", $selected_id = "";
+    
 
     public function mount()
     {

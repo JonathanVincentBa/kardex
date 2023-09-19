@@ -2,18 +2,24 @@
     <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
         <div class="form-group">
             <h3 class="text-center mb-2"><b>SELECCIÓN DE FECHAS</b></h3>
-        </div>
+        </div>	
     </div>
     <div class="col-lg-5 col-sm-5 col-md-5 col-xs-12">
-        <div wire:ignore class="form-group text-center">
+        <div class="form-group text-center">
             <label for="nombre"><b>Seleccione una fecha desde</b></label>
-            <input wire:model='desde' id="desde">
+            <input wire:model='desde'  type="date" class = "form-control">
+            @error('name') <span class="error">{{ $message }}</span> @enderror
         </div>
     </div>
     <div class="col-lg-5 col-sm-5 col-md-5 col-xs-12">
-        <div wire:ignore class="form-group text-center">
+        <div class="form-group text-center">
             <label for="nombre"><b>Seleccione una fecha hasta</b></label>
-            <input wire:model='hasta' id="hasta" disabled>
+            @if (!is_null($desde))
+                <input wire:model='hasta' type="date" class = "form-control" >
+            @else
+                <input wire:model='hasta' type="date" class = "form-control"disabled>
+            @endif
+            
         </div>
     </div>
 </div>

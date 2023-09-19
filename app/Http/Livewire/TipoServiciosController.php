@@ -7,13 +7,13 @@ use App\Models\TipoServicio;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
+
 
 class TipoServiciosController extends Component
 {
     use WithPagination;
 
-    public $servicioid,$codigo,$nombre, $search, $selected_id, $pageTitle, $componetName;
+    public $servicioid,$codigo,$nombre, $search, $selected_id, $pageTitle, $componetName, $user;
     private $pagination = 10;
 
     public function paginationView()

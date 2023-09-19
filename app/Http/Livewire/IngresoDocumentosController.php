@@ -13,9 +13,10 @@ use DB;
 
 class IngresoDocumentosController extends Component
 {
-    public $select_id, $user, $empresa, $destino, $asunto, $fechaActual, $desde, $hasta, 
-    $selectedRemitente,  $user_id, $remitentes, $ingresos,  $ingresoDocumentos;
+    public $select_id, $user, $empresa, $destino, $asunto, $fechaActual, $desde, $hasta, $selectedRemitente,  $user_id, $remitentes, $ingresos,  
+    $ingresoDocumentos;
 
+    
     public function mount()
     {
         $fecha = Carbon::now();

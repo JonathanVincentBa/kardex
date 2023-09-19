@@ -10,7 +10,7 @@ class ServiciosController extends Component
 {
     use WithPagination;
 
-    public $codigo, $nombre, $search, $selected_id, $pageTitle, $componetName;
+    public $codigo, $nombre, $search, $selected_id, $pageTitle, $componetName, $user;
     private $pagination = 10;
 
     public function mount()

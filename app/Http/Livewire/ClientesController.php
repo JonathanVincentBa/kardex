@@ -87,9 +87,7 @@ class ClientesController extends Component
                     }
                 }
             }
-        }
-
-        else if ($totalPalabras == 2) {
+        } else if ($totalPalabras == 2) {
             $cod .= substr($separadas[1], 0, 1);
             $inicio = strlen($separadas[1]);
             for ($i = 1; $i <= $inicio; $i++) {
@@ -105,24 +103,18 @@ class ClientesController extends Component
                     }
                 }
             }
-        }
-
-        else if ($totalPalabras > 2) {
+        } else if ($totalPalabras > 2) {
             $inicio = strlen($separadas[1]);
             for ($i = 0; $i <= $inicio; $i++) {
                 for ($j = $i; $j <= $inicio; $j++) {
                     $cod .= substr($separadas[1], $j, 1);
-                    if(strlen($cod) == 2)
-                    {
+                    if (strlen($cod) == 2) {
                         $cod .= substr($separadas[2], 0, 1);
                         $sql = DB::select('SELECT count(*) as cod from clientes where codigo = ?', [$cod]);
-                        if ($sql[0]->cod == 1)
-                        {
+                        if ($sql[0]->cod == 1) {
                             $cod = '';
                             $cod .= substr($separadas[0], 0, 1);
-                        }
-                        else
-                        {
+                        } else {
                             $this->codigo = $cod;
                             break 2;
                         }
