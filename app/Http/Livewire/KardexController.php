@@ -13,7 +13,7 @@ use Livewire\Component;
 class KardexController extends Component
 {
     public $componetName, $pageTitle, $clientes, $cliente, $servicios, $servicio, $enviadoPor,$kardexes, $destinatario, $descripcion, 
-           $fechaActual, $desde, $hasta, $selected_id,$selectedTipo, $carpeta;
+           $fechaActual, $desde, $hasta, $selected_id,$selectedTipo, $carpeta, $control_id;
 
     protected $listeners = ['changeData'];
     
@@ -49,7 +49,6 @@ class KardexController extends Component
 
     public function updatedCliente($value)
     {
-        
         $this->servicios = ControlArchivo::join('tipo_servicios', 'tipo_servicios.id', '=', 'control_archivos.tipo_servicio_id')
             ->select('control_archivos.id', 'tipo_servicios.codigo', 'control_archivos.carpeta')
             ->where('control_archivos.cliente_id', '=', $value)
@@ -57,11 +56,6 @@ class KardexController extends Component
             ->orderBy('carpeta', 'asc')
             ->get();
         $this->servicio = $this->servicios->first()->id ?? null;
-    }
-
-    public function hydrate()
-    {
-        $this->emmit('data-change-event');
     }
 
     public function updatedDesde($value)
@@ -150,6 +144,7 @@ class KardexController extends Component
     {
         $record = Kardex::find($id);
         $this->selected_id = $record->id;
+        $this->control_id = $record->control_archivo_id;
         $control = ControlArchivo::find($record->control_archivo_id);
         $this->cliente = $control->cliente_id;
         $this->servicio = $control->tipo_servicio_id;
@@ -163,6 +158,28 @@ class KardexController extends Component
             ->orderBy('tipo_servicios.codigo', 'asc')
             ->orderBy('carpeta', 'asc')
             ->get();
-        $this->servicio = $this->servicios->first()->id ?? null;
+        $this->emit('updateSelect2Cliente');
+        $this->emit('updateSelect2Servicio');
+
+    }
+
+    public function actualizarKardex()
+    {
+        $kardex = Kardex::find($this->selected_id);
+        $kardex->update([
+            'control_archivo_id' => $this->control_id,
+            'destinatario' => $this->destinatario,
+            'descripcion' => $this->descripcion,
+            'enviadoPor' => $this->enviadoPor,
+        ]); 
+        $this->reset();
+        $this->pageTitle = 'Listado';
+        $this->componetName = 'Cartas';
+        $fecha = Carbon::now();
+        $this->fechaActual = $fecha->toDateTimeString();
+        $this->clientes = Cliente::all();
+        $this->servicios = collect();
+        $this->emit('kardex-added', 'Carta Actualizada');
+
     }
 }

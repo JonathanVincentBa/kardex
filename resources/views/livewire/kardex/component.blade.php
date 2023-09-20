@@ -36,25 +36,34 @@
         document.addEventListener('livewire:load', function() {
             const clienteSelect2 = $('#cliente')
             const servicioSelect2 = $('#tipo')
-
             const desdeDatePicker = $('#desde')
             const hastaDatePicker = $('#hasta')
 
             clienteSelect2.select2();
-            servicioSelect2.select2(); 
+            servicioSelect2.select2();
+
+            clienteSelect2.on('change', function(e) {
+                var clienteId = clienteSelect2.select2("val");
+                @this.set('cliente', clienteId);
+            });
+
+            servicioSelect2.on('change', function(e) {
+                var servicioId = servicioSelect2.select2("val");
+                @this.set('servicio', servicioId);
+            });
 
             desdeDatePicker.datepicker({
                 width: 300,
                 format: 'yyyy-mm-dd'
             });
-            hastaDatePicker.datepicker({
-                width: 300,
-                format: 'yyyy-mm-dd'
-            });
-
             desdeDatePicker.on('change', function(e) {
                 var desdeId = desdeDatePicker.datepicker("val");
                 @this.set('desde', desdeId);
+            });
+
+            hastaDatePicker.datepicker({
+                width: 300,
+                format: 'yyyy-mm-dd'
             });
 
             hastaDatePicker.on('change', function(e) {
@@ -84,8 +93,14 @@
                 })
             })
 
-            /*  livewire.on('updateSelect2Remitente', function() {
-                 remitenteSelect2.val(@this.get('selectedRemitente')).trigger('change');
-             }) */
+            livewire.on('updateSelect2Cliente', function() {
+                clienteSelect2.val(@this.get('cliente')).trigger('change');
+                clienteSelect2.removeAttr('disabled');
+            })
+
+            livewire.on('updateSelect2Servicio', function() {
+                servicioSelect2.val(@this.get('servicio')).trigger('change');
+                servicioSelect2.removeAttr('disabled');
+            })
         });
     </script>

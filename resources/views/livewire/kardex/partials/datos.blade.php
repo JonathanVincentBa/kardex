@@ -48,9 +48,6 @@
                                             {{ $servicio->carpeta }} </option>
                                     @endforeach
                                 </select>
-                                @error('cliente_id')
-                                    <span class="text-danger er">{{ $message }}</span>
-                                @enderror
                             </div>
                         </div>
                     </div>
@@ -114,8 +111,6 @@
                             Guardar F9
                         </button>
                     @endif
-
-
                 </div>
             @endif
         </div>
