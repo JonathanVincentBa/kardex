@@ -3,7 +3,6 @@
         <div class="connect-sorting">
             <h5 class="text-center mb-3">SELECCIONAR UN CLIENTE</h5>
             <div class="connect-sorting-content">
-
                 <div class="car-body">
                     <div class="task-header">
                         <div class="row justify-content-between">
@@ -14,7 +13,7 @@
                                             <i class="fa fa-search"></i>
                                         </span>
                                     </div>
-                                    <select wire:model='cliente' id="cliente" class="form-control"
+                                    <select wire:model='cliente' id="cliente" style="width:400px"
                                         data-placeholder="SELECCIONE UN CLIENTE">
                                         <option value="" disabled>SELECCIONE UN CLIENTE</option>
                                         @foreach ($clientes as $cliente)
@@ -41,11 +40,11 @@
                                         <i class="fa fa-search"></i>
                                     </span>
                                 </div>
-                                <select wire:model='servicio' id="tipo" class="form-control"
+                                <select wire:model='servicio' id="tipo" style="width:400px"
                                     data-placeholder="SELECCIONE UN CLIENTE PRIMERO">
                                     @foreach ($servicios as $servicio)
                                         <option value="{{ $servicio->id }}">{{ $servicio->codigo }} -
-                                            {{ $servicio->carpeta }} </option>
+                                            {{ $servicio->carpeta }} | {{$servicio->nombre}} </option>
                                     @endforeach
                                 </select>
                             </div>

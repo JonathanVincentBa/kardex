@@ -7,13 +7,13 @@
     </div>
     <div class="widget-content">
         <div class="row layout-top-spacing">
-            <div class="col-sm-12 col-md-8">
+            <div class="col-sm-12 col-md-7">
                 <!-- BUSCADOR -->
                 @include('livewire.kardex.partials.buscador')
                 <!-- DETALLES -->
                 @include('livewire.kardex.partials.detail')
             </div>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-5">
 
                 <!-- ASUNTO -->
                 @include('livewire.kardex.partials.datos')
@@ -93,14 +93,14 @@
                 })
             })
 
-            livewire.on('updateSelect2Cliente', function() {
-                clienteSelect2.val(@this.get('cliente')).trigger('change');
-                clienteSelect2.removeAttr('disabled');
-            })
-
-            livewire.on('updateSelect2Servicio', function() {
+            livewire.on('updateSelect2', function() {
                 servicioSelect2.val(@this.get('servicio')).trigger('change');
+                clienteSelect2.val(@this.get('cliente')).trigger('change');
+                
+                clienteSelect2.select2();
+                servicioSelect2.select2();
                 servicioSelect2.removeAttr('disabled');
+                clienteSelect2.removeAttr('disabled');
             })
         });
     </script>
