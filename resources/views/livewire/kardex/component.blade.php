@@ -43,25 +43,10 @@
                 placeholder: '{{ __('SELECCIONE UN CLIENTE') }}',
                 allowClear: true
             });
-           /*  servicioSelect2.select2({
-                placeholder: '{{ __('SELECCIONE UN CLIENTE PRIMERO') }}',
-                allowClear: true,
-            }); */
-
             servicioSelect2.select2({
                 placeholder: '{{ __('SELECCIONE UN CLIENTE PRIMERO') }}',
-               
-                formatSelection: function(item) {
-                    return item.text
-                },
-                formatResult: function(item) {
-                    return item.text
-                },
-                templateResult: formatResult
+                allowClear: true,
             });
-            setTimeout(function() {
-                $('.select2-results__option').attr('aria-disabled', false);
-            })
 
             clienteSelect2.on('change', function(e) {
                 var clienteId = clienteSelect2.select2("val");
@@ -73,7 +58,6 @@
                 @this.set('servicio', servicioId);
             });
 
-            servicioSelect2.select2('refresh');
 
             desdeDatePicker.datepicker({
                 width: 300,
