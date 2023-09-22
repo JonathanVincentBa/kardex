@@ -14,7 +14,7 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class KardexController extends Component
 {
-    public $componetName, $pageTitle, $clientes, $cliente, $servicios, $servicio, $enviadoPor, $kardexes, $destinatario, $descripcion,
+    public $componetName, $pageTitle, $clientes= [], $cliente, $servicios= [], $servicio, $enviadoPor, $kardexes= [], $destinatario, $descripcion,
         $fechaActual, $desde, $hasta, $selected_id, $selectedTipo, $carpeta, $control_id;
 
     protected $listeners = ['changeData'];
@@ -65,7 +65,6 @@ class KardexController extends Component
             $this->emit('errorFecha', 'La fecha seleccionada debe ser menor a la fecha actual');
             $this->desde = null;
         } else {
-            $this->kardexes = [];
             $this->kardexes = Kardex::join('control_archivos as ca', 'ca.id', '=', 'kardexes.control_archivo_id')
                 ->join('tipo_servicios as t', 't.id', '=', 'ca.tipo_servicio_id')
                 ->join('clientes as c', 'c.id', '=', 'ca.cliente_id')
@@ -79,7 +78,7 @@ class KardexController extends Component
 
     public function updatedHasta()
     {
-        if ($this->desde == null) {
+        if (empty($this->desde)) {
             $this->kardexes = Kardex::whereDate('kardexes.created_at', '=', $this->desde)
                 ->OrwhereDate('kardexes.updated_at', '=', $this->desde)
                 ->join('control_archivos as ca', 'ca.id', '=', 'kardexes.control_archivo_id')
@@ -142,6 +141,7 @@ class KardexController extends Component
 
     public function Edit($id)
     {
+        $this->reset();
         $record = Kardex::find($id);
         $this->selected_id = $record->id;
         $this->control_id = $record->control_archivo_id;

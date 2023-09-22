@@ -13,9 +13,8 @@
                                             <i class="fa fa-search"></i>
                                         </span>
                                     </div>
-                                    <select wire:model='cliente' id="cliente" style="width:400px"
-                                        data-placeholder="SELECCIONE UN CLIENTE">
-                                        <option value="" disabled>SELECCIONE UN CLIENTE</option>
+                                    <select wire:model='cliente' id="cliente" style="width:400px">
+                                        <option></option>
                                         @foreach ($clientes as $cliente)
                                             <option value="{{ $cliente->id }}">{{ $cliente->nombre }}</option>
                                         @endforeach
@@ -34,7 +33,7 @@
                 <div class="task-header">
                     <div class="row justify-content-between">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="input-group mb-4" width="100%">
+                            <div wire::ignore class="input-group mb-4" width="100%">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text input-gp">
                                         <i class="fa fa-search"></i>
@@ -42,9 +41,10 @@
                                 </div>
                                 <select wire:model='servicio' id="tipo" style="width:400px"
                                     data-placeholder="SELECCIONE UN CLIENTE PRIMERO">
+                                    <option value=""></option>
                                     @foreach ($servicios as $servicio)
                                         <option value="{{ $servicio->id }}">{{ $servicio->codigo }} -
-                                            {{ $servicio->carpeta }} | {{$servicio->nombre}} </option>
+                                            {{ $servicio->carpeta }} | {{ $servicio->nombre }} </option>
                                     @endforeach
                                 </select>
                             </div>

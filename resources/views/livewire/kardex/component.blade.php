@@ -39,8 +39,29 @@
             const desdeDatePicker = $('#desde')
             const hastaDatePicker = $('#hasta')
 
-            clienteSelect2.select2();
-            servicioSelect2.select2();
+            clienteSelect2.select2({
+                placeholder: '{{ __('SELECCIONE UN CLIENTE') }}',
+                allowClear: true
+            });
+           /*  servicioSelect2.select2({
+                placeholder: '{{ __('SELECCIONE UN CLIENTE PRIMERO') }}',
+                allowClear: true,
+            }); */
+
+            servicioSelect2.select2({
+                placeholder: '{{ __('SELECCIONE UN CLIENTE PRIMERO') }}',
+               
+                formatSelection: function(item) {
+                    return item.text
+                },
+                formatResult: function(item) {
+                    return item.text
+                },
+                templateResult: formatResult
+            });
+            setTimeout(function() {
+                $('.select2-results__option').attr('aria-disabled', false);
+            })
 
             clienteSelect2.on('change', function(e) {
                 var clienteId = clienteSelect2.select2("val");
@@ -51,6 +72,8 @@
                 var servicioId = servicioSelect2.select2("val");
                 @this.set('servicio', servicioId);
             });
+
+            servicioSelect2.select2('refresh');
 
             desdeDatePicker.datepicker({
                 width: 300,
@@ -96,7 +119,7 @@
             livewire.on('updateSelect2', function() {
                 servicioSelect2.val(@this.get('servicio')).trigger('change');
                 clienteSelect2.val(@this.get('cliente')).trigger('change');
-                
+
                 clienteSelect2.select2();
                 servicioSelect2.select2();
                 servicioSelect2.removeAttr('disabled');
