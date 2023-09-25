@@ -104,6 +104,7 @@ class ContactoClientesController extends Component
         $this->email = '';
         $this->search = '';
         $this->selected_id = 0;
+        $this->resetValidation();
     }
 
       public function Edit(ContactoCliente $contactoCliente)

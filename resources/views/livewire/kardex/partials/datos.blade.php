@@ -93,8 +93,7 @@
                                     DESCRIPCIÓN
                                 </span>
                             </div>
-                            <textarea wire:model="descripcion" class="form-control" rows="3" style="text-transform:uppercase;"
-                                onkeyup="javascript:this.value=this.value.toUpperCase();"></textarea>
+                            <textarea wire:model="descripcion" class="form-control" rows="3" ></textarea>
 
                         </div>
                     </div>

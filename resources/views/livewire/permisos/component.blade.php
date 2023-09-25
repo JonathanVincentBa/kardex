@@ -5,9 +5,8 @@
                 <a href="javascript:void(0)" class="btn btn-dark float-right" data-toggle="modal"
                     data-target="#theModal">Agregar</a>
                 <h4 class="card-title">
-                    <b>{{ $componetName }} | {{ $pageTitle }} </b>
+                    <b> {{ $componentName }} | {{ $pageTitle }}</b>
                 </h4>
-
             </div>
             @include('common.searchbox')
             <div class="widget-content">
@@ -15,63 +14,70 @@
                     <table class="table table-bordered table striped mt-1">
                         <thead class="text-white" style="background: #3b3f5c;">
                             <tr>
-                                <th class="table-th text-wite">Codigo</th>
-                                <th class="table-th text-wite">Nombre</th>
-                                <th class="table-th text-wite">D.N.I.</th>
+                                <th class="table-th text-wite">CODIGO</th>
+                                <th class="table-th text-wite">NOMBRE</th>
                                 <th class="table-th text-wite">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($clientes as $cliente)
+                            @foreach ($permisos as $permiso)
                                 <tr>
-                                    <td>{{ $cliente->codigo }}</td>
-                                    <td>{{ $cliente->nombre }}</td>
-                                    <td>{{ $cliente->dni }}</td>
                                     <td>
-                                        <a href="javascript:void(0)" wire:click='Edit({{ $cliente->id }})'
-                                            class="btn btn-dark mtmobile" title="Edit">
+                                        <h6>{{ $permiso->id }}</h6>
+                                    </td>
+                                    <td>
+                                        <h6>{{ $permiso->name }}</h6>
+                                    </td>
+                                    <td>
+                                        <button wire:click='Edit({{ $permiso->id }})' class="btn btn-dark mtmobile"
+                                            title="Edit">
                                             <i class="fas fa-edit"></i>
-                                        </a>
+                                        </button>
 
-                                        <a href="javascript:void(0)"
-                                            onclick="Confirm('{{ $cliente->id }}','{{ $cliente->contacto_clientes->count() }}')"
-                                            class="btn btn-dark" title="Delete">
+                                        <button onclick="Confirm(' {{ $permiso->id }}')" class="btn btn-dark"
+                                            title="Eliminar Registro">
                                             <i class="fas fa-trash"></i>
-                                        </a>
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
+
                         </tbody>
                     </table>
-                    {{ $clientes->links() }}
+                    {{ $permisos->links() }}
                 </div>
             </div>
         </div>
     </div>
-    @include('livewire.cliente.form')
+    @include('livewire.permisos.form')
 </div>
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        window.livewire.on('cliente-added', msg => {
-            $('#theModal').modal('hide');
+    document.addEventListener('livewire:load', function() {
+        window.livewire.on('permiso-add', msg => {
+            $('#theModal').modal('hide')
             noty(msg)
         })
-        window.livewire.on('cliente-updated', msg => {
-            $('#theModal').modal('hide');
+        window.livewire.on('permiso-updated', msg => {
+            $('#theModal').modal('hide')
             noty(msg)
         })
-        window.livewire.on('cliente-deleted', msg => {
+        window.livewire.on('permiso-delete', msg => {
+            noty(msg)
+        })
+        window.livewire.on('permiso-exists', msg => {
+            noty(msg)
+        })
+
+        window.livewire.on('permiso-error', msg => {
             noty(msg)
         })
         window.livewire.on('hide-modal', msg => {
-            $('#theModal').modal('hide');
-
+            $('#theModal').modal('hide')
         })
         window.livewire.on('show-modal', msg => {
-            $('#theModal').modal('show');
-
+            $('#theModal').modal('show')
         })
     });
 
@@ -107,7 +113,7 @@
             confirmButtonText: 'Aceptar'
         }).then((result) => {
             if (result.value) {
-                window.livewire.emit('deleteRow', id)
+                window.livewire.emit('destroy', id)
                 swal.close()
             }
         })

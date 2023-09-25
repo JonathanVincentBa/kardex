@@ -223,6 +223,7 @@ class ClientesController extends Component
         $this->email = '';
         $this->search = '';
         $this->selected_id = 0;
+        $this->resetValidation();
     }
 
     protected $listeners = [

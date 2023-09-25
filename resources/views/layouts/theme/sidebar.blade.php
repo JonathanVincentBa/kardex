@@ -26,6 +26,8 @@
                 <li><a class="treeview-item" href="{{url('servicios')}}""><i class="icon fa fa-circle-o"></i> Servicios</a></li>
                 <li><a class="treeview-item" href="{{url('tipo-servicios')}}"><i class="icon fa fa-circle-o"></i> Tipo de
                         servicio</a></li>
+                <li><a class="treeview-item" href="{{url('roles')}}"><i class="icon fa fa-circle-o"></i> Roles</a></li>
+                <li><a class="treeview-item" href="{{url('permisos')}}"><i class="icon fa fa-circle-o"></i> Permisos</a></li>
 
             </ul>
         </li>

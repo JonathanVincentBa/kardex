@@ -84,10 +84,6 @@
             $('#theModal').modal('show');
 
         })
-        window.livewire.on('hidden.bs.modal', msg => {
-            $('.er').css('display', 'none');
-
-        })
     });
 
     function noty(msg) {

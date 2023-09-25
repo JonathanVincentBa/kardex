@@ -4,7 +4,7 @@
             <div class="widget-heading">
             <a href="javascript:void(0)" class="btn btn-dark float-right" data-toggle="modal" data-target="#theModal">Agregar</a>
                 <h4 class="card-title">
-                    <b>ComponentName | PageTitle</b>
+                    <b> {{ $componentName }} | {{ $pageTitle }}</b>
                 </h4>
             </div>
             Search

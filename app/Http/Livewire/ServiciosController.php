@@ -110,6 +110,7 @@ class ServiciosController extends Component
         $this->nombre = '';
         $this->search = '';
         $this->selected_id = 0;
+        $this->resetValidation();
     }
 
     protected $listeners = [
