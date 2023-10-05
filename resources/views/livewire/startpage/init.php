@@ -46,7 +46,7 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('livewire:load', function() {
 
     });
 </script>

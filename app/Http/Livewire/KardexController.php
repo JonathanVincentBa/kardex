@@ -14,8 +14,8 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class KardexController extends Component
 {
-    public $componetName, $pageTitle, $clientes= [], $cliente, $servicios= [], $servicio, $enviadoPor, $kardexes= [], $destinatario, $descripcion,
-        $fechaActual, $desde, $hasta, $selected_id, $selectedTipo, $carpeta, $control_id;
+    public $componetName, $pageTitle, $clientes = [], $clienteId, $servicios = [], $servicioId, $enviadoPor, $destinatario, $descripcion,
+        $fechaActual, $desde, $hasta, $selected_id, $carpeta, $control_id;
 
     protected $listeners = ['changeData'];
 
@@ -33,7 +33,40 @@ class KardexController extends Component
     {
         $fecha = Carbon::now();
         $this->fechaActual = $fecha->toDateString();
-        $data = Kardex::join('control_archivos as ca', 'ca.id', '=', 'kardexes.control_archivo_id')
+
+        if ($this->fechaActual < $this->desde) {
+            $this->emit('errorFecha', 'La fecha seleccionada debe ser menor a la fecha actual');
+            $this->desde = null;
+        } 
+        if ($this->fechaActual > $this->desde) {
+            $data = Kardex::join('control_archivos as ca', 'ca.id', '=', 'kardexes.control_archivo_id')
+                ->join('tipo_servicios as t', 't.id', '=', 'ca.tipo_servicio_id')
+                ->join('clientes as c', 'c.id', '=', 'ca.cliente_id')
+                ->join('users as u', 'u.id', '=', 'kardexes.enviadoPor')
+                ->select('kardexes.id', 'c.nombre as cliente', 't.codigo as tipo', 'ca.carpeta', 'kardexes.destinatario', 'kardexes.descripcion', 'u.name as enviadoPor')
+                ->whereDate('kardexes.created_at', '=', $this->desde)
+                ->OrwhereDate('kardexes.updated_at', '=', $this->desde)
+                ->get();
+        }
+        if (!empty($this->hasta) && $this->desde >= $this->hasta) {
+            $this->hasta = null;
+            $this->emit('errorFecha', 'Error fecha seleccionada es mayor a la fecha anterior');
+        } 
+        if ($this->hasta > $this->fechaActual) {
+            $this->hasta = null;
+            $this->emit('errorFecha', 'Error fecha seleccionada es mayor a la fecha actual');
+        } 
+        if ($this->hasta > $this->desde && $this->hasta < $this->fechaActual){
+            $data = Kardex::whereBetween('kardexes.created_at', [$this->desde, $this->hasta])
+                ->join('control_archivos as ca', 'ca.id', '=', 'kardexes.control_archivo_id')
+                ->join('tipo_servicios as t', 't.id', '=', 'ca.tipo_servicio_id')
+                ->join('clientes as c', 'c.id', '=', 'ca.cliente_id')
+                ->join('users as u', 'u.id', '=', 'kardexes.enviadoPor')
+                ->select('kardexes.id', 'c.nombre as cliente', 't.codigo as tipo', 'ca.carpeta', 'kardexes.destinatario', 'kardexes.descripcion', 'u.name as enviadoPor')
+                ->get();
+        }
+        if (empty($this->desde) && empty($this->hasta)){
+             $data = Kardex::join('control_archivos as ca', 'ca.id', '=', 'kardexes.control_archivo_id')
             ->join('tipo_servicios as t', 't.id', '=', 'ca.tipo_servicio_id')
             ->join('clientes as c', 'c.id', '=', 'ca.cliente_id')
             ->join('users as u', 'u.id', '=', 'kardexes.enviadoPor')
@@ -41,16 +74,15 @@ class KardexController extends Component
             ->whereDate('kardexes.created_at', '=', $this->fechaActual)
             ->OrwhereDate('kardexes.updated_at', '=', $this->fechaActual)
             ->get();
-
-        return view('livewire.kardex.component', [
-            'cartas' => $data
-        ])
+        }
+        return view('livewire.kardex.component', ['cartas' => $data])
             ->extends('layouts.app')
             ->section('content');
     }
 
-    public function updatedCliente($value)
+    public function updatedClienteId($value)
     {
+        
         $this->servicios = ControlArchivo::join('tipo_servicios', 'tipo_servicios.id', '=', 'control_archivos.tipo_servicio_id')
             ->select('control_archivos.id', 'tipo_servicios.codigo as codigo', 'control_archivos.carpeta', 'tipo_servicios.nombre as nombre')
             ->where('control_archivos.cliente_id', '=', $value)
@@ -58,75 +90,15 @@ class KardexController extends Component
             ->orderBy('carpeta', 'asc')
             ->get();
     }
-
-    public function updatedDesde($value)
+    public function hydrate()
     {
-        if ($this->fechaActual < $this->desde) {
-            $this->emit('errorFecha', 'La fecha seleccionada debe ser menor a la fecha actual');
-            $this->desde = null;
-        } else {
-            $this->kardexes = Kardex::join('control_archivos as ca', 'ca.id', '=', 'kardexes.control_archivo_id')
-                ->join('tipo_servicios as t', 't.id', '=', 'ca.tipo_servicio_id')
-                ->join('clientes as c', 'c.id', '=', 'ca.cliente_id')
-                ->join('users as u', 'u.id', '=', 'kardexes.enviadoPor')
-                ->select('kardexes.id', 'c.nombre as cliente', 't.codigo as tipo', 'ca.carpeta', 'kardexes.destinatario', 'kardexes.descripcion', 'u.name as enviadoPor')
-                ->whereDate('kardexes.created_at', '=', $value)
-                ->OrwhereDate('kardexes.updated_at', '=', $value)
-                ->get();
-        }
-    }
-
-    public function updatedHasta()
-    {
-        if (empty($this->desde)) {
-            $this->kardexes = Kardex::whereDate('kardexes.created_at', '=', $this->desde)
-                ->OrwhereDate('kardexes.updated_at', '=', $this->desde)
-                ->join('control_archivos as ca', 'ca.id', '=', 'kardexes.control_archivo_id')
-                ->join('tipo_servicios as t', 't.id', '=', 'ca.tipo_servicio_id')
-                ->join('clientes as c', 'c.id', '=', 'ca.cliente_id')
-                ->join('users as u', 'u.id', '=', 'kardexes.enviadoPor')
-                ->select('kardexes.id', 'c.nombre as cliente', 't.codigo as tipo', 'ca.carpeta', 'kardexes.destinatario', 'kardexes.descripcion', 'u.name as enviadoPor')
-                ->get();
-            $this->emit('errorFecha', 'Debes seleccionar primero una fecha de Inicio');
-            $this->hasta = null;
-        } elseif ($this->desde >= $this->hasta) {
-            $this->kardexes = Kardex::whereDate('kardexes.created_at', '=', $this->desde)
-                ->OrwhereDate('kardexes.updated_at', '=', $this->desde)
-                ->join('control_archivos as ca', 'ca.id', '=', 'kardexes.control_archivo_id')
-                ->join('tipo_servicios as t', 't.id', '=', 'ca.tipo_servicio_id')
-                ->join('clientes as c', 'c.id', '=', 'ca.cliente_id')
-                ->join('users as u', 'u.id', '=', 'kardexes.enviadoPor')
-                ->select('kardexes.id', 'c.nombre as cliente', 't.codigo as tipo', 'ca.carpeta', 'kardexes.destinatario', 'kardexes.descripcion', 'u.name as enviadoPor')
-                ->get();
-            $this->hasta = null;
-            $this->emit('errorFecha', 'Error fecha seleccionada es mayor a la fecha anterior');
-        } elseif ($this->hasta > $this->fechaActual) {
-            $this->kardexes = Kardex::whereDate('kardexes.created_at', '=', $this->desde)
-                ->OrwhereDate('kardexes.updated_at', '=', $this->desde)
-                ->join('control_archivos as ca', 'ca.id', '=', 'kardexes.control_archivo_id')
-                ->join('tipo_servicios as t', 't.id', '=', 'ca.tipo_servicio_id')
-                ->join('clientes as c', 'c.id', '=', 'ca.cliente_id')
-                ->join('users as u', 'u.id', '=', 'kardexes.enviadoPor')
-                ->select('kardexes.id', 'c.nombre as cliente', 't.codigo as tipo', 'ca.carpeta', 'kardexes.destinatario', 'kardexes.descripcion', 'u.name as enviadoPor')
-                ->get();
-            $this->hasta = null;
-            $this->emit('errorFecha', 'Error fecha seleccionada es mayor a la fecha actual');
-        } else {
-            $this->kardexes = Kardex::whereBetween('kardexes.created_at', [$this->desde, $this->hasta])
-                ->join('control_archivos as ca', 'ca.id', '=', 'kardexes.control_archivo_id')
-                ->join('tipo_servicios as t', 't.id', '=', 'ca.tipo_servicio_id')
-                ->join('clientes as c', 'c.id', '=', 'ca.cliente_id')
-                ->join('users as u', 'u.id', '=', 'kardexes.enviadoPor')
-                ->select('kardexes.id', 'c.nombre as cliente', 't.codigo as tipo', 'ca.carpeta', 'kardexes.destinatario', 'kardexes.descripcion', 'u.name as enviadoPor')
-                ->get();
-        }
+        $this->emit('select2Servicio');
     }
 
     public function saveKardex()
     {
-
         $kardex = Kardex::create([
-            'control_archivo_id' => $this->servicio,
+            'control_archivo_id' => $this->servicioId,
             'destinatario' => $this->destinatario,
             'descripcion' => $this->descripcion,
             'enviadoPor' => Auth::user()->id
@@ -138,16 +110,14 @@ class KardexController extends Component
         $this->clientes = Cliente::all();
         $this->servicios = collect();
     }
-
+   
     public function Edit($id)
     {
-        $this->reset();
         $record = Kardex::find($id);
         $this->selected_id = $record->id;
-        $this->control_id = $record->control_archivo_id;
+        $this->servicioId = $record->control_archivo_id;
         $control = ControlArchivo::find($record->control_archivo_id);
-        $this->cliente = $control->cliente_id;
-        $this->servicio = $control->tipo_servicio_id;
+        $this->clienteId = $control->cliente_id;
         $this->carpeta = $control->carpeta;
         $this->destinatario = $record->destinatario;
         $this->descripcion = $record->descripcion;
@@ -157,9 +127,10 @@ class KardexController extends Component
 
     public function actualizarKardex()
     {
+        dd($this->servicioId);
         $kardex = Kardex::find($this->selected_id);
         $kardex->update([
-            'control_archivo_id' => $this->control_id,
+            'control_archivo_id' => $this->servicioId,
             'destinatario' => $this->destinatario,
             'descripcion' => $this->descripcion,
             'enviadoPor' => $this->enviadoPor,
@@ -182,7 +153,7 @@ class KardexController extends Component
         $control = ControlArchivo::find($record->control_archivo_id);
         $client = Cliente::find($control->cliente_id);
         $tipo = TipoServicio::find($control->tipo_servicio_id);
-        
+
         $templateProcessor = new TemplateProcessor('word-template/carta.docx');
         $templateProcessor->setValue('id', $record->id);
         $templateProcessor->setValue('anio', $afecha);

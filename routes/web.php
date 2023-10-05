@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\AsignarController;
 use App\Http\Livewire\ClientesController;
 use App\Http\Livewire\ContactoClientesController;
 use App\Http\Livewire\ControlArchivosController;
@@ -10,6 +11,7 @@ use App\Http\Livewire\Roles;
 use App\Http\Livewire\RolesController;
 use App\Http\Livewire\ServiciosController;
 use App\Http\Livewire\TipoServiciosController;
+use App\Http\Livewire\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -50,5 +52,9 @@ Route::get('/kardex', KardexController::class);
 Route::get('/roles', RolesController::class);
 
 Route::get('/permisos', PermisosController::class);
+
+Route::get('/asignar', AsignarController::class);
+
+Route::get('/user', UsersController::class);
 
 

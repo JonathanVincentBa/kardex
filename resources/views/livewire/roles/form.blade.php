@@ -20,7 +20,7 @@
                                 </div>
                                 <input type="text" wire:model.lazy='roleName' class="form-control"
                                     style="text-transform:uppercase;"
-                                    onkeyup="javascript:this.value=this.value.toUpperCase();">
+                                    onkeyup="javascript:this.value=this.value.toUpperCase();" autofocus>
                             </div>
                         </div>
                         @error('roleName')

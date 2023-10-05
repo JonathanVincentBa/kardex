@@ -12,7 +12,7 @@ class PermisosController extends Component
     
     public $permissionName, $search, $selected_id, $componentName, $pageTitle;
 
-    private $pagination = 10;
+    private $pagination = 2;
 
     public function paginateView()
     {

@@ -20,94 +20,76 @@
             </div>
         </div>
     </div>
+</div>
 
+<script>
+/*     function Habilitar() {
+        var des = document.getElementById('desde');
+        var has = document.getElementById('hasta');
 
-    <script>
-        function Habilitar() {
-            var des = document.getElementById('desde');
-            var has = document.getElementById('hasta');
-
-            if (des.value != "") {
-                has.disabled = false;
-            } else {
-                has.disabled = true;
-            }
+        if (des.value != "") {
+            has.disabled = false;
+        } else {
+            has.disabled = true;
         }
-        document.addEventListener('livewire:load', function() {
-            const clienteSelect2 = $('#cliente')
-            const servicioSelect2 = $('#tipo')
-            const desdeDatePicker = $('#desde')
-            const hastaDatePicker = $('#hasta')
+    } */
+    document.addEventListener('livewire:load', function() {
+        const clienteSelect2 = $('#cliente')
+        const servicioSelect2 = $('#tipo')
 
-            clienteSelect2.select2({
-                placeholder: '{{ __('SELECCIONE UN CLIENTE') }}',
-                allowClear: true
-            });
-            servicioSelect2.select2({
-                placeholder: '{{ __('SELECCIONE UN CLIENTE PRIMERO') }}',
-                allowClear: true,
-            });
-
-            clienteSelect2.on('change', function(e) {
-                var clienteId = clienteSelect2.select2("val");
-                @this.set('cliente', clienteId);
-            });
-
-            servicioSelect2.on('change', function(e) {
-                var servicioId = servicioSelect2.select2("val");
-                @this.set('servicio', servicioId);
-            });
-
-
-            desdeDatePicker.datepicker({
-                width: 300,
-                format: 'yyyy-mm-dd'
-            });
-            desdeDatePicker.on('change', function(e) {
-                var desdeId = desdeDatePicker.datepicker("val");
-                @this.set('desde', desdeId);
-            });
-
-            hastaDatePicker.datepicker({
-                width: 300,
-                format: 'yyyy-mm-dd'
-            });
-
-            hastaDatePicker.on('change', function(e) {
-                var hastaId = hastaDatePicker.datepicker("val");
-                @this.set('hasta', hastaId);
-            });
-
-
-
-            livewire.on('errorFecha', msg => {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'error',
-                    title: msg,
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            })
-
-            livewire.on('kardex-added', msg => {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: msg,
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            })
-
-            livewire.on('updateSelect2', function() {
-                servicioSelect2.val(@this.get('servicio')).trigger('change');
-                clienteSelect2.val(@this.get('cliente')).trigger('change');
-
-                clienteSelect2.select2();
-                servicioSelect2.select2();
-                servicioSelect2.removeAttr('disabled');
-                clienteSelect2.removeAttr('disabled');
-            })
+        clienteSelect2.select2({
+            placeholder: '{{ __('SELECCIONE UN CLIENTE') }}',
+            allowClear: true
         });
-    </script>
+        servicioSelect2.select2({
+            placeholder: '{{ __('SELECCIONE CLIENTE PRIMERO') }}',
+            allowClear: true,
+        });
+
+        clienteSelect2.on('change', function(e) {
+            var clienteId = clienteSelect2.select2("val");
+            @this.set('clienteId', clienteId);
+        });
+
+        servicioSelect2.on('change', function(e) {
+            var servicioId = servicioSelect2.select2("val");
+            @this.set('servicioId', servicioId);
+        });
+        $(document).ready(function() {
+            window.initSelectStationDrop = () => {
+                servicioSelect2.select2({
+                    placeholder: '{{ __('SELECCIONE UN SERVICIO') }}',
+                    allowClear: true,
+                });
+            }
+            initSelectStationDrop();
+            window.livewire.on('select2Servicio', () => {
+                initSelectStationDrop();
+            });
+
+        });
+        livewire.on('errorFecha', msg => {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: msg,
+                showConfirmButton: false,
+                timer: 1500
+            })
+        })
+
+        livewire.on('kardex-added', msg => {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: msg,
+                showConfirmButton: false,
+                timer: 1500
+            })
+        })
+        livewire.on('updateSelect2', function() {
+            servicioSelect2.val(@this.get('servicioId')).trigger('change');
+            clienteSelect2.val(@this.get('clienteId')).trigger('change');
+        })
+    });
+</script>

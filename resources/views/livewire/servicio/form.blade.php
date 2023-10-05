@@ -9,7 +9,7 @@
                         <span class="fas fa-edit"></span>
                     </span>
                 </div>
-                <input type="text" wire:model.lazy='codigo' class="form-control" placeholder="CODIGO" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();">
+                <input type="text" wire:model.lazy='codigo' class="form-control" placeholder="CODIGO" style="text-transform:uppercase;"  onkeyup="javascript:this.value=this.value.toUpperCase();" autofocus>
             </div>
         </div>
         @error('codigo')

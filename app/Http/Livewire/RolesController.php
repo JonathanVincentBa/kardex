@@ -12,7 +12,7 @@ class RolesController extends Component
     
     public $roleName, $search, $selected_id, $componentName, $pageTitle;
 
-    private $pagination = 10;
+    private $pagination = 2;
 
     public function paginateView()
     {
