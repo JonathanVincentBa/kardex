@@ -7,9 +7,9 @@
                 <h4 class="card-title">
                     <b>{{ $componetName }} | {{ $pageTitle }} </b>
                 </h4>
-
             </div>
             @include('common.searchbox')
+            
             <div class="widget-content">
                 <div class="table-resposive">
                     <table class="table table-bordered table striped mt-1">

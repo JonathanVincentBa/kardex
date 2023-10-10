@@ -27,11 +27,10 @@
                         <span class="fas fa-edit"></span>
                     </span>
                 </div>
-                <input type="text" wire:model.lazy='email' class="form-control" style="text-transform:uppercase;"
-                    onkeyup="javascript:this.value=this.value.toLowerCase();" placeholder="ej: correo@correo.com" maxlength="10">
+                <input type="text" wire:model.lazy='email' class="form-control"  placeholder="ej: correo@correo.com" style="text-transform:lowercase;"  onkeyup="javascript:this.value=this.value.toLowerCase();">
             </div>
         </div>
-        @error('correo')
+        @error('email')
             <span class="text-danger er">{{ $message }}</span>
         @enderror
     </div>
@@ -46,8 +45,7 @@
                         <span class="fas fa-edit"></span>
                     </span>
                 </div>
-                <input type="password" wire:model.lazy='password' class="form-control" style="text-transform:uppercase;"
-                    onkeyup="javascript:this.value=this.value.toUpperCase();">
+                <input type="password" wire:model.lazy='password' class="form-control">
             </div>
         </div>
         @error('password')
@@ -56,9 +54,9 @@
     </div>
     <div class="col-sm-6">
         <div class="form-group">
-            <label>CORREO *</label>
-            <select wire:.model.lazy="status" class="form-control">
-                <option value="Elegir" selected disabled>ELEGIR</option>
+            <label>STATUS *</label>
+            <select wire:model.lazy="status" class="form-control">
+                <option value="ELEGIR" selected disabled>ELEGIR</option>
                 <option value="ACTIVE">ACTIVO</option>
                 <option value="LOCKED">BLOQUEADO</option>
             </select>
@@ -72,22 +70,22 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label>ASIGNAR ROL *</label>
-            <select wire:.model.lazy="role" id="rol" class="form-control">
-                <option></option>
+            <select wire:model.lazy="perfil" class="form-control">
+                <option value="ELEGIR" selected disabled>ELEGIR</option>
                 @foreach ($roles as $role) 
                     <option value="{{ $role->id}}">{{$role->name}}</option>
                 @endforeach
                 
             </select>
         </div>
-        @error('role')
+        @error('perfil')
             <span class="text-danger er">{{ $message }}</span>
         @enderror
     </div>
     <div class="col-sm-6">
         <div class="form-group">
             <label>IMAGEN DE PERFIL</label>
-            <input type="file" wire.model="image" accept="image/x-png,image/jpeg, image/gif" class="form-control">
+            <input type="file" wire:model="imagen" accept="image/x-png,image/jpeg, image/gif" class="form-control">
         </div>
         @error('image')
             <span class="text-danger er">{{ $message }}</span>

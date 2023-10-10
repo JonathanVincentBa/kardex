@@ -41,10 +41,10 @@
                                     </td>
                                     <td style="text-align: center;">
                                         @if ($item->imagen == null)
-                                            <img src="{{ asset('storage/users/noimg.png') }}" width="40"
+                                            <img src="{{ asset('storage\users\noimg.png') }}" width="40"
                                                 height="30" alt="User Image">
                                         @else
-                                            <img src="{{ asset('storage/users' . $item->imagen) }}" width="25"
+                                            <img src="{{ asset('storage/users/' . $item->imagen) }}" width="25"
                                                 height="25" alt="User Image">
                                         @endif
 
@@ -65,7 +65,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{-- {{ $data->links() }} --}}
+                    {{ $data->links() }}
                 </div>
             </div>
         </div>
@@ -76,20 +76,13 @@
 
 <script>
     document.addEventListener('livewire:load', function() {
-        const rolesSelect2 = $("#rol")
-        
-        rolesSelect2.select2({
-            placeholder: {{ __('SELECIONE UN ROL')}},
-            allowClear: true,
-        });
-        
         livewire.on('user-added', msg => {
-            $(#theModal).modal('hide')
+            $('#theModal').modal('hide')
             noty(msg)
         })
 
         livewire.on('user-updated', msg => {
-            $(#theModal).modal('hide')
+            $('#theModal').modal('hide')
             noty(msg)
         })
 
@@ -98,11 +91,11 @@
         })
 
         livewire.on('hide-modal', msg => {
-            $(#theModal).modal('hide')
+            $('#theModal').modal('hide')
         })
 
         livewire.on('show-modal', msg => {
-            $(#theModal).modal('hide')
+            $('#theModal').modal('show')
         })
 
         livewire.on('user-withsales', msg => {

@@ -14,10 +14,10 @@ class RolesController extends Component
 
     private $pagination = 2;
 
-    public function paginateView()
+    public function paginationView()
     {
         return 'vendor.livewire.bootstrap';
-    } 
+    }
 
     public function mount()
     {
