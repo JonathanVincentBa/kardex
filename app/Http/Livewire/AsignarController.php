@@ -14,7 +14,7 @@ class AsignarController extends Component
 
     public $role, $componentName, $permisosSelected = [], $old_permissions = [];
 
-    private $pagination = 2;
+    private $pagination = 10;
 
 
     public function paginationView()
@@ -31,7 +31,7 @@ class AsignarController extends Component
     public function render()
     {
         $permisos = Permission::select('name', 'id', DB::raw("0 as checked"))
-            ->orderBy('name', 'asc')
+            ->orderBy('id', 'asc')
             ->paginate($this->pagination);
 
         if ($this->role != 'Elegir') {

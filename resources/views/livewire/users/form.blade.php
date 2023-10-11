@@ -54,7 +54,7 @@
     </div>
     <div class="col-sm-6">
         <div class="form-group">
-            <label>STATUS *</label>
+            <label>ESTATUS *</label>
             <select wire:model.lazy="status" class="form-control">
                 <option value="ELEGIR" selected disabled>ELEGIR</option>
                 <option value="ACTIVE">ACTIVO</option>
@@ -70,7 +70,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label>ASIGNAR ROL *</label>
-            <select wire:model.lazy="perfil" class="form-control">
+            <select wire:model.lazy="role_id" class="form-control">
                 <option value="ELEGIR" selected disabled>ELEGIR</option>
                 @foreach ($roles as $role) 
                     <option value="{{ $role->id}}">{{$role->name}}</option>
@@ -78,7 +78,7 @@
                 
             </select>
         </div>
-        @error('perfil')
+        @error('role_id')
             <span class="text-danger er">{{ $message }}</span>
         @enderror
     </div>

@@ -26,11 +26,10 @@
                 <li><a class="treeview-item" href="{{url('servicios')}}""><i class="icon fa fa-circle-o"></i> Servicios</a></li>
                 <li><a class="treeview-item" href="{{url('tipo-servicios')}}"><i class="icon fa fa-circle-o"></i> Tipo de
                         servicio</a></li>
-                <li><a class="treeview-item" href="{{url('user')}}"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>
-                <li><a class="treeview-item" href="{{url('roles')}}"><i class="icon fa fa-circle-o"></i> Roles</a></li>
-                <li><a class="treeview-item" href="{{url('permisos')}}"><i class="icon fa fa-circle-o"></i> Permisos</a></li>
                 <li><a class="treeview-item" href="{{url('asignar')}}"><i class="icon fa fa-circle-o"></i> Asignar</a></li>
-
+                <li><a class="treeview-item" href="{{url('permisos')}}"><i class="icon fa fa-circle-o"></i> Permisos</a></li>
+                <li><a class="treeview-item" href="{{url('roles')}}"><i class="icon fa fa-circle-o"></i> Roles</a></li>
+                <li><a class="treeview-item" href="{{url('user')}}"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>
             </ul>
         </li>
 
@@ -42,12 +41,12 @@
         </li>
 
 
-        <li>
+        {{-- <li>
             <a class="app-menu__item" href="#">
                 <i class="app-menu__icon fa fa-solid fa-map-location-dot"></i>
                 <span class="app-menu__label">Hoja de ruta</span>
             </a>
-        </li>
+        </li> --}}
         <li>
             <a class="app-menu__item" href="{{url('ingreso-documentos')}}">
                 <i class="app-menu__icon fa fa-file-text"></i>
@@ -66,11 +65,11 @@
                 <span class="app-menu__label">Reportes</span>
             </a>
         </li>
-        <li>
+       {{--  <li>
             <a class="app-menu__item" href="docs.html">
                 <i class="app-menu__icon fa fa-file-code-o"></i>
                 <span class="app-menu__label">Documentación</span>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </aside>

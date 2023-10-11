@@ -23,16 +23,7 @@
 </div>
 
 <script>
-/*     function Habilitar() {
-        var des = document.getElementById('desde');
-        var has = document.getElementById('hasta');
 
-        if (des.value != "") {
-            has.disabled = false;
-        } else {
-            has.disabled = true;
-        }
-    } */
     document.addEventListener('livewire:load', function() {
         const clienteSelect2 = $('#cliente')
         const servicioSelect2 = $('#tipo')

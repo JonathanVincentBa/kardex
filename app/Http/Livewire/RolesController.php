@@ -12,7 +12,7 @@ class RolesController extends Component
     
     public $roleName, $search, $selected_id, $componentName, $pageTitle;
 
-    private $pagination = 2;
+    private $pagination = 10;
 
     public function paginationView()
     {
@@ -28,10 +28,10 @@ class RolesController extends Component
     {
         if(strlen($this->search) > 0)
         {
-            $data = Role::where('name', 'like', '%' . $this->search . '%')->paginate($this->pagination);
+            $data = Role::where('name', 'like', '%' . $this->search . '%')->orderBy('id', 'asc')->paginate($this->pagination);
         }else
         {
-            $data = Role::orderBy('name', 'asc')->paginate($this->pagination);
+            $data = Role::orderBy('id', 'asc')->paginate($this->pagination);
         }
         return view('livewire.roles.component', [
             'roles' => $data

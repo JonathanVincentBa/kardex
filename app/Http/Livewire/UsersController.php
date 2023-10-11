@@ -13,13 +13,14 @@ class UsersController extends Component
     use WithPagination;
     use WithFileUploads;
 
-    public $name, $email, $password, $imagen, $selected_id, $status, $perfil, $dni, $componetName, $pageTitle, $search;
+    public $name, $email, $password, $imagen, $selected_id, $status, $role_id, $dni, $componetName, $pageTitle, $search;
     private $pagination = 10;
 
     public function mount()
     {
         $this->componetName = "Usuarios";
         $this->pageTitle = "listado";
+        $this->role_id = "ELEGIR";
         $this->status = "ELEGIR";
     }
 
@@ -31,14 +32,16 @@ class UsersController extends Component
     public function render()
     {
        if (strlen($this->search) > 0) {
-            $data = User::where('name','like','%'.$this->search.'%')
-                    ->select('*')
-                    ->orderBy('name','asc')
+            $data = User::join('roles','roles.id','users.role_id')
+                    ->where('users.name','like','%'.$this->search.'%')
+                    ->select('users.id','users.name','users.email','roles.name as role','users.status')
+                    ->orderBy('users.id','asc')
                     ->paginate($this->pagination);
        }else
        {
-            $data = User::select('*')
-                    ->orderBy('name','asc')
+            $data = User::join('roles','roles.id','users.role_id')
+                    ->select('users.id','users.name','users.email','roles.name as role','users.status')
+                    ->orderBy('users.id','asc')
                     ->paginate($this->pagination);
        }
         return view('livewire.users.component', [
@@ -55,7 +58,7 @@ class UsersController extends Component
         $this->email ='';
         $this->password ='';
         $this->imagen ='';
-        $this->perfil ='';
+        $this->role_id ='';
         $this->dni ='';
         $this->search ='';
         $this->status ='';
@@ -67,7 +70,7 @@ class UsersController extends Component
     {
         $this->selected_id = $user->id;
         $this->name= $user->name;
-        $this->perfil = $user->perfil;
+        $this->role_id = $user->role_id;
         $this->status = $user->status;
         $this->email = $user->email;
         $this->password = '';
@@ -88,7 +91,7 @@ class UsersController extends Component
             'name'      =>'required|min:3',
             'email'     => 'required|unique:users|email',
             'status'    => 'required|not_in:ELEGIR',
-            'perfil'    => 'required|not_in:ELEGIR',
+            'role_id'    => 'required|not_in:ELEGIR',
             'password'  => 'required|min:3'
 
         ];
@@ -101,8 +104,8 @@ class UsersController extends Component
             'email.unique'      => 'El email ya existe en sistema',
             'status.required'   => 'Selecciona el estatus del usuario',
             'status.not_in'     =>'seleccione el status',
-            'perfil.required'   => 'Selecciona el perfil/role del usuario',
-            'perfil.not_in'     =>'seleccione un perfil / role distinto  a ELEGIR',
+            'role_id.required'   => 'Selecciona el rol del usuario',
+            'role_id.not_in'     =>'seleccione un rol distinto  a ELEGIR',
             'password.required' => 'Ingresa el password',
             'password.min'      => 'El password debe poseer al menos 3 caracteres'
         ];
@@ -111,10 +114,11 @@ class UsersController extends Component
         $user = User::create([
             'name'      => $this->name,
             'email'     => $this->email,
-            'email'     => $this->email,
+            'password'  => bcrypt($this->password),
+            'role_id'    => $this->role_id,
             'status'    => $this->status,
-            'perfil'    => $this->perfil,
-            'password'  => bcrypt($this->password)
+            'dni'       =>$this->dni
+            
         ]);
         if ($this->imagen) {
             $customFileName = uniqid() .'_.' .$this->imagen->extension();
@@ -130,11 +134,13 @@ class UsersController extends Component
 
     public function Update()
     {
+
+
         $rules =[
             'email'     => "required|email|unique:users,email,{$this->selected_id}",
             'name'      => 'required|min:3',
             'status'    => 'required|not_in:ELEGIR',
-            'perfil'    => 'required|not_in:ELEGIR',
+            'role_id'    => 'required|not_in:ELEGIR',
             'password'  => 'required|min:3'
 
         ];
@@ -147,8 +153,8 @@ class UsersController extends Component
             'email.unique'      => 'El email ya existe en sistema',
             'status.required'   => 'Selecciona el estatus del usuario',
             'status.not_in'     =>'seleccione el status',
-            'perfil.required'   => 'Selecciona el perfil/role del usuario',
-            'perfil.not_in'     =>'seleccione un perfil / role distinto  a ELEGIR',
+            'role_id.required'   => 'Selecciona el rol del usuario',
+            'role_id.not_in'     =>'seleccione un rol distinto  a ELEGIR',
             'password.required' => 'Ingresa el password',
             'password.min'      => 'El password debe poseer al menos 3 caracteres'
         ];
@@ -157,10 +163,10 @@ class UsersController extends Component
         $user->update([
             'name'      => $this->name,
             'email'     => $this->email,
-            'email'     => $this->email,
+            'password'  => bcrypt($this->password),
+            'role_id'    => $this->role_id,
             'status'    => $this->status,
-            'perfil'    => $this->perfil,
-            'password'  => bcrypt($this->password)
+            'dni'       =>$this->dni
         ]);
         
         if ($this->imagen) {

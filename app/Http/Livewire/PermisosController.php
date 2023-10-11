@@ -12,7 +12,7 @@ class PermisosController extends Component
     
     public $permissionName, $search, $selected_id, $componentName, $pageTitle;
 
-    private $pagination = 2;
+    private $pagination = 10;
 
     public function paginationView()
     {
@@ -28,10 +28,10 @@ class PermisosController extends Component
     {
         if(strlen($this->search) > 0)
         {
-            $data = Permission::where('name', 'like', '%' . $this->search . '%')->paginate($this->pagination);
+            $data = Permission::where('name', 'like', '%' . $this->search . '%')->orderBy('id', 'asc')->paginate($this->pagination);
         }else
         {
-            $data = Permission::orderBy('name', 'asc')->paginate($this->pagination);
+            $data = Permission::orderBy('id', 'asc')->paginate($this->pagination);
         }
         return view('livewire.permisos.component', [
             'permisos' => $data

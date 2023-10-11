@@ -17,8 +17,8 @@
                             <tr>
                                 <th class="table-th text-wite">USUARIO</th>
                                 <th class="table-th text-wite text-center">EMAIL</th>
-                                <th class="table-th text-wite text-center">PERFIL</th>
-                                <th class="table-th text-wite text-center">STATUS</th>
+                                <th class="table-th text-wite text-center">ROLE</th>
+                                <th class="table-th text-wite text-center">ESTATUS</th>
                                 <th class="table-th text-wite text-center">IMAGEN</th>
                                 <th class="table-th text-wite text-center">Acciones</th>
                             </tr>
@@ -32,7 +32,7 @@
                                     <td class="text-center">
                                         <h6>{{ $item->email }}</h6>
                                     </td>
-                                    <td class="text-center"><span>{{ $item->perfil }}</span></td>
+                                    <td class="text-center"><span>{{ $item->role }}</span></td>
                                     <td class="text-center">
                                         <span
                                             class="badge {{ $item->status == 'ACTIVE' ? 'badge-success' : 'badge-danger' }} text-uppercase">
@@ -102,59 +102,24 @@
             noty(msg)
         })
 
-        function noty(msg) {
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: msg,
-                showConfirmButton: false,
-                timer: 1500
-            })
-        }
-
-        function Confirm(id, contacto_clientes) {
-            if (contacto_clientes > 0) {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'error',
-                    title: 'No se puede eliminar por que tiene registros relacionados',
-                    showConfirmButton: false,
-                    timer: 2500
-                })
-                return;
-            }
-            Swal.fire({
-                title: 'CONFIRMAR',
-                text: "CONFIRMAS ELIMINAR EL REGISTRO",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3b3f5c',
-                cancelButtonText: 'Cerrar',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Aceptar'
-            }).then((result) => {
-                if (result.value) {
-                    window.livewire.emit('deleteRow', id)
-                    swal.close()
-                }
-            })
-
-            function noty(msg, option = 1) {
-                Snackbar.show({
-                    text: msg.toUpperCase(),
-                    actionText: 'CERRAR',
-                    actionTextColor: '#fff',
-                    backgroundColor: option == 1 ? '#3b3f5c' : '#e7515a',
-                    pos: 'top-rigth'
-                });
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Your work has been saved',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            }
-        }
     });
+
+
+    function Confirm(id) {
+        Swal.fire({
+            title: 'CONFIRMAR',
+            text: "CONFIRMAS ELIMINAR EL REGISTRO",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3b3f5c',
+            cancelButtonText: 'Cerrar',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Aceptar'
+        }).then((result) => {
+            if (result.value) {
+                window.livewire.emit('deleteRow', id)
+                swal.close()
+            }
+        })
+    }
 </script>

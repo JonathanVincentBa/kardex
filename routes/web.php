@@ -40,7 +40,6 @@ Route::get('/contacto-clientes',ContactoClientesController::class);
 
 Route::get('/servicios', ServiciosController::class);
 
-
 Route::get('/tipo-servicios', TipoServiciosController::class);
 
 Route::get('/control-archivos', ControlArchivosController::class);
