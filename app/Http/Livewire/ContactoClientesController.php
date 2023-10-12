@@ -57,6 +57,11 @@ class ContactoClientesController extends Component
             ->section('content');
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public function Store()
     {
         $rules = [

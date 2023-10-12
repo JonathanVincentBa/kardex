@@ -21,6 +21,11 @@ class TipoServiciosController extends Component
         return 'vendor.livewire.bootstrap';
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public function mount()
     {
         $this->pageTitle = 'Listado';

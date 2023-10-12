@@ -29,6 +29,11 @@ class UsersController extends Component
         return 'vendor.livewire.bootstrap';
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
        if (strlen($this->search) > 0) {

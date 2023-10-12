@@ -42,6 +42,30 @@ class ClientesController extends Component
             ->extends('layouts.app')
             ->section('content');
     }
+    
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function resetUI()
+    {
+        $this->codigo = '';
+        $this->nombre = '';
+        $this->direccion = '';
+        $this->dni = '';
+        $this->fono1 = '';
+        $this->fono2 = '';
+        $this->email = '';
+        $this->search = '';
+        $this->selected_id = 0;
+        $this->resetValidation();
+    }
+
+    protected $listeners = [
+        'deleteRow' => 'Destroy'
+    ];
+
 
     public function Edit($id)
     {
@@ -212,24 +236,7 @@ class ClientesController extends Component
         $this->emit('cliente-updated', 'Cliente Actualizado');
     }
 
-    public function resetUI()
-    {
-        $this->codigo = '';
-        $this->nombre = '';
-        $this->direccion = '';
-        $this->dni = '';
-        $this->fono1 = '';
-        $this->fono2 = '';
-        $this->email = '';
-        $this->search = '';
-        $this->selected_id = 0;
-        $this->resetValidation();
-    }
-
-    protected $listeners = [
-        'deleteRow' => 'Destroy'
-    ];
-
+   
     public function Destroy(Cliente $cliente)
     {
         $cliente->delete();
