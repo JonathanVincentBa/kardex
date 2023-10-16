@@ -18,9 +18,7 @@
                                         <span class="fas fa-edit"></span>
                                     </span>
                                 </div>
-                                <input type="text" wire:model.lazy='permissionName' class="form-control"
-                                    style="text-transform:uppercase;"
-                                    onkeyup="javascript:this.value=this.value.toUpperCase();">
+                                <input type="text" wire:model.lazy='permissionName' class="form-control">
                             </div>
                         </div>
                         @error('permissionName')

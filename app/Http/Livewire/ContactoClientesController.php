@@ -165,8 +165,6 @@ class ContactoClientesController extends Component
         $this->emit('contactoCliente-updated', 'Contacto del Cliente Registrado');
     }
 
-
-
     protected $listeners = [
         'deleteRow' => 'Destroy'
     ];

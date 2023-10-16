@@ -34,26 +34,26 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/clientes', ClientesController::class);
+Route::get('/clientes', ClientesController::class)->name('clientes');
 
-Route::get('/contacto-clientes',ContactoClientesController::class);
+Route::get('/contacto-clientes',ContactoClientesController::class)->name('contacto-clientes');
 
-Route::get('/servicios', ServiciosController::class);
+Route::get('/servicios', ServiciosController::class)->name('servicios');
 
-Route::get('/tipo-servicios', TipoServiciosController::class);
+Route::get('/tipo-servicios', TipoServiciosController::class)->name('tipo-servicios');
 
-Route::get('/control-archivos', ControlArchivosController::class);
+Route::get('/control-archivos', ControlArchivosController::class)->name('control-archivos');
 
-Route::get('/ingreso-documentos', IngresoDocumentosController::class);
+Route::get('/ingreso-documentos', IngresoDocumentosController::class)->name('ingreso-documentos');
 
-Route::get('/kardex', KardexController::class);
+Route::get('/kardex', KardexController::class)->name('kardex');
 
-Route::get('/roles', RolesController::class);
+Route::get('/roles', RolesController::class)->name('roles');
 
-Route::get('/permisos', PermisosController::class);
+Route::get('/permisos', PermisosController::class)->name('permisos');
 
-Route::get('/asignar', AsignarController::class);
+Route::get('/asignar', AsignarController::class)->name('asignar');
 
-Route::get('/user', UsersController::class);
+Route::get('/users', UsersController::class)->name('users');
 
 

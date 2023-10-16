@@ -125,6 +125,9 @@ class UsersController extends Component
             'dni'       =>$this->dni
             
         ]);
+
+        $user->syncRoles($this->role_id);
+
         if ($this->imagen) {
             $customFileName = uniqid() .'_.' .$this->imagen->extension();
             $this->imagen->storeAs('storage/users', $customFileName);
@@ -173,6 +176,8 @@ class UsersController extends Component
             'status'    => $this->status,
             'dni'       =>$this->dni
         ]);
+
+        $user->syncRoles($this->role_id);
         
         if ($this->imagen) {
             $customFileName = uniqid() .'_.' .$this->imagen->extension();

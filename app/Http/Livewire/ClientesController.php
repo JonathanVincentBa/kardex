@@ -66,24 +66,6 @@ class ClientesController extends Component
         'deleteRow' => 'Destroy'
     ];
 
-
-    public function Edit($id)
-    {
-        $record = Cliente::find($id);
-        $this->selected_id = $record->id;
-        $this->codigo = $record->codigo;
-        $this->nombre = $record->nombre;
-        $this->direccion = $record->direccion;
-        $this->dni = $record->dni;
-        $this->fono1 = $record->fono1;
-        $this->fono2 = $record->fono2;
-        $this->email = $record->email;
-
-        $this->emit('show-modal', 'Show modal!');
-    }
-
-
-
     public function updatedNombre()
     {
         $cod = '';
@@ -192,6 +174,22 @@ class ClientesController extends Component
         $this->resetUI();
         $this->emit('cliente-added', 'Cliente Registrado');
     }
+
+    public function Edit($id)
+    {
+        $record = Cliente::find($id);
+        $this->selected_id = $record->id;
+        $this->codigo = $record->codigo;
+        $this->nombre = $record->nombre;
+        $this->direccion = $record->direccion;
+        $this->dni = $record->dni;
+        $this->fono1 = $record->fono1;
+        $this->fono2 = $record->fono2;
+        $this->email = $record->email;
+
+        $this->emit('show-modal', 'Show modal!');
+    }
+
     public function Update()
     {
 
