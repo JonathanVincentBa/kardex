@@ -21,10 +21,13 @@
         </div>
     </div>
 </div>
-
 <script>
-
     document.addEventListener('livewire:load', function() {
+        
+        window.livewire.on('show-modal', msg =>{
+            $('#theModal').modal('show')
+        });
+        
         const clienteSelect2 = $('#cliente')
         const servicioSelect2 = $('#tipo')
 
@@ -36,12 +39,10 @@
             placeholder: '{{ __('SELECCIONE CLIENTE PRIMERO') }}',
             allowClear: true,
         });
-
         clienteSelect2.on('change', function(e) {
             var clienteId = clienteSelect2.select2("val");
             @this.set('clienteId', clienteId);
-        });
-
+        }); 
         servicioSelect2.on('change', function(e) {
             var servicioId = servicioSelect2.select2("val");
             @this.set('servicioId', servicioId);
@@ -57,8 +58,18 @@
             window.livewire.on('select2Servicio', () => {
                 initSelectStationDrop();
             });
-
         });
+        livewire.on('updateSelect2', function() {
+            /* servicioSelect2.val(@this.get('servicioId')).trigger('change'); */
+            clienteSelect2.val(@this.get('clienteId')).trigger('change');
+        })
+
+
+
+        livewire.on('hide-modal', msg => {
+            $('#theModal').modal('hide');
+
+        })
         livewire.on('errorFecha', msg => {
             Swal.fire({
                 position: 'top-end',
@@ -78,9 +89,6 @@
                 timer: 1500
             })
         })
-        livewire.on('updateSelect2', function() {
-            servicioSelect2.val(@this.get('servicioId')).trigger('change');
-            clienteSelect2.val(@this.get('clienteId')).trigger('change');
-        })
-    });
+        
+    })
 </script>

@@ -11,9 +11,13 @@
         </div>
     </div>
     <div class="col-lg-5 col-sm-5 col-md-5 col-xs-12">
-        <div wire:ignore class="form-group text-center">
+        <div class="form-group text-center">
             <label for="nombre"><b>Seleccione una fecha hasta</b></label>
-            <input wire:model='hasta' type="date" id="hasta" class="form-control" disabled>
+            @if (!is_null($desde))
+                <input wire:model='hasta' type="date" class = "form-control" >
+            @else
+                <input wire:model='hasta' type="date" class = "form-control"disabled>
+            @endif
         </div>
     </div>
 </div>

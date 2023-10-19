@@ -23,11 +23,12 @@
                                             class="btn btn-dark mtmobile" title="Editar">
                                             <i class="fas fa-edit"></i>
                                         </button>
+                                       
 
-                                        <button type="button" wire:click='Ver({{ $item->id }})'
-                                            class="btn btn-dark mtmobile" title="Ver">
+                                        <button type="button" class="btn btn-dark mtmobile" title="Ver">
                                             <i class="fas fa-regular fa-eye"></i>
                                         </button>
+
 
                                         <button type="button" wire:click='exportarWord({{ $item->id }})'
                                             class="btn btn-dark mtmobile" title="Exportar">

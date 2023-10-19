@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Cliente;
 use App\Models\ControlArchivo;
 use App\Models\Kardex;
+use App\Models\Servicio;
 use App\Models\TipoServicio;
 use App\Models\User;
 use Carbon\Carbon;
@@ -14,8 +15,9 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class KardexController extends Component
 {
-    public $componetName, $pageTitle, $clientes = [], $clienteId, $servicios = [], $servicioId, $enviadoPor, $destinatario, $descripcion,
-        $fechaActual, $desde, $hasta, $selected_id, $carpeta, $control_id;
+    public $componetName, $pageTitle, $clientes = [], $clienteId, $servicios = [], $servicioId, $enviadoPor, 
+           $destinatario, $descripcion,$fechaActual, $desde, $hasta, $selected_id, $carpeta, $control_id,
+           $tipoCodigo, $tipoNombre, $clienteNombre, $enviadoX, $fechaEnvio;
 
     protected $listeners = ['changeData'];
 
@@ -83,17 +85,19 @@ class KardexController extends Component
     public function updatedClienteId($value)
     {
         
+        
         $this->servicios = ControlArchivo::join('tipo_servicios', 'tipo_servicios.id', '=', 'control_archivos.tipo_servicio_id')
             ->select('control_archivos.id', 'tipo_servicios.codigo as codigo', 'control_archivos.carpeta', 'tipo_servicios.nombre as nombre')
             ->where('control_archivos.cliente_id', '=', $value)
             ->orderBy('tipo_servicios.codigo', 'asc')
             ->orderBy('carpeta', 'asc')
             ->get();
+         
     }
-    public function hydrate()
+   /*  public function hydrate()
     {
         $this->emit('select2Servicio');
-    }
+    } */
 
     public function saveKardex()
     {
@@ -123,6 +127,32 @@ class KardexController extends Component
         $this->descripcion = $record->descripcion;
         $this->enviadoPor = $record->enviadoPor;
         $this->emit('updateSelect2');
+    }
+
+    public function Ver($id)
+    {
+
+        $record = Kardex::find($id);
+        $control = ControlArchivo::find($record->control_archivo_id);
+        $enviadoPor = User::find($record->enviadoPor);
+        $clienteId = $control->cliente_id;
+        $tipoId = $control->tipo_servicio_id;
+        $cliente = Cliente::find($clienteId);
+        $this->clienteNombre = $cliente->nombre;
+        $tipo = TipoServicio::find($tipoId);
+        $this->tipoCodigo = $tipo->codigo;
+        $this->tipoNombre = $tipo->nombre;
+        $this->carpeta = $control->carpeta;
+        $this->destinatario = $record->destinatario;
+        $this->descripcion = $record->descripcion;
+        $this->enviadoX = $enviadoPor->name;
+
+        $this->emit('show-modal', 'Show modal!');
+    }
+
+    public function resetUI()
+    {
+        $this->reset();
     }
 
     public function actualizarKardex()

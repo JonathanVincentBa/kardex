@@ -38,7 +38,7 @@
     @if ($select_id > 0) 
         <div class="row justify-content-center align-items-center col-sm-12 col-md-12 col-lg-12 mt-3">
             <button wire:click.prevent="actualizarIngresoDocumentos" class="btn btn-dark btn-md btn-block">
-                Actualizar F9
+                Actualizar
             </button>
         </div>
         
@@ -46,7 +46,7 @@
     @else 
         <div class="row justify-content-center align-items-center col-sm-12 col-md-12 col-lg-12 mt-3">
             <button wire:click.prevent="saveIngresoDocumentos" class="btn btn-dark btn-md btn-block">
-                Guardar F9
+                Guardar
             </button>
         </div>
     @endif

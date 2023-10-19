@@ -1,5 +1,11 @@
 <div>
+    <div class="widget-heading">
+        <h4 class="card-title">
+            <b>{{ $componetName }} </b>
+        </h4>
+    </div>
     <div class="row layout-top-spacing">
+        
         <div class="col-sm-12 col-md-8">
             <!-- BUSCADOR -->
             @include('livewire.ingresoDocumentos.partials.buscador')

@@ -14,11 +14,11 @@
     <div class="row justify-content-center align-items-center col-sm-12 col-md-12 col-lg-12 mt-3">
         @if ($selected_id > 1)
             <button type="button" wire:click.prevent="actualizarControl" class="btn btn-dark btn-md btn-block">
-                Actualizar F9
+                Actualizar
             </button>
         @else
             <button type="button" wire:click.prevent="saveControl" class="btn btn-dark btn-md btn-block">
-                Guardar F9
+                Guardar
             </button>
         @endif
 

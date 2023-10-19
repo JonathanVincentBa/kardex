@@ -14,11 +14,12 @@ use DB;
 class IngresoDocumentosController extends Component
 {
     public $select_id, $user, $empresa, $destino, $asunto, $fechaActual, $desde, $hasta, $selectedRemitente,  $user_id, $remitentes, $ingresos,  
-    $ingresoDocumentos;
+    $ingresoDocumentos, $componetName;
 
     
     public function mount()
     {
+        $this->componetName = 'Ingreso de Documentos';
         $fecha = Carbon::now();
         $this->fechaActual = $fecha->toDateTimeString();
         $this->remitentes = IngresoDocumento::whereBetween('created_at', ['2023-8-1', Carbon::today()->toDateString()])

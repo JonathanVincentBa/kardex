@@ -13,13 +13,15 @@
                                             <i class="fa fa-search"></i>
                                         </span>
                                     </div>
-                                    <select wire:model='cliente_id' id="cliente" style="width:400px">
+                                    <select wire:model='clienteId' id="cliente" style="width:400px">
                                         <option></option>
                                         @foreach ($clientes as $cliente)
                                             <option value="{{ $cliente->id }}">{{ $cliente->nombre }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+                                {{--  @if (is_null($servicios))  --}}
+
                                 <h5 class="text-center mb-2">SERVICIOS</h5>
 
                                 <div class="input-group mb-4" width="100%">
@@ -28,8 +30,8 @@
                                             <i class="fa fa-search"></i>
                                         </span>
                                     </div>
-                                    <select wire:model='servicioId' id="tipo" style="width:400px">
-                                        <option value=""></option>
+                                    <select wire:model='servicioId' id="tipo" style="width:400px"
+                                        placeholder="Selecciona un servicio">
                                         @foreach ($servicios as $servicio)
                                             <option value="{{ $servicio->id }}">{{ $servicio->codigo }} -
                                                 {{ $servicio->carpeta }} | {{ $servicio->nombre }} </option>
@@ -80,23 +82,20 @@
                                     @if ($selected_id != null)
                                         <button wire:click.prevent="actualizarKardex"
                                             class="btn btn-dark btn-md btn-block">
-                                            Actualizar F9
+                                            Actualizar
                                         </button>
                                     @else
                                         <button wire:click.prevent="saveKardex" class="btn btn-dark btn-md btn-block">
-                                            Guardar F9
+                                            Guardar
                                         </button>
                                     @endif
                                 </div>
+                                {{-- @endif --}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
     </div>
-</div>
 </div>

@@ -71,7 +71,6 @@
         })
         window.livewire.on('show-modal', msg => {
             $('#theModal').modal('show');
-
         })
     });
 
