@@ -25,7 +25,7 @@
                                         </button>
                                        
 
-                                        <button type="button" class="btn btn-dark mtmobile" title="Ver">
+                                        <button type="button" class="btn btn-dark mtmobile" wire:click='Ver({{ $item->id }})' title="Ver">
                                             <i class="fas fa-regular fa-eye"></i>
                                         </button>
 
