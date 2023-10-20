@@ -15,7 +15,7 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class KardexController extends Component
 {
-    public $componetName, $pageTitle, $clientes = [], $clienteId, $servicios = [], $servicioId, $enviadoPor, 
+    public $componetName, $pageTitle, $clientes = [], $clienteId, $servicios = [], $servicioId, $enviadoPor,
            $destinatario, $descripcion,$fechaActual, $desde, $hasta, $selected_id, $carpeta, $control_id,
            $tipoCodigo, $tipoNombre, $clienteNombre, $enviadoX, $fechaEnvio;
 
@@ -81,23 +81,26 @@ class KardexController extends Component
             ->extends('layouts.app')
             ->section('content');
     }
+   
 
-    public function updatedClienteId($value)
+    public function getDataServicios($value)
     {
-        
-        
         $this->servicios = ControlArchivo::join('tipo_servicios', 'tipo_servicios.id', '=', 'control_archivos.tipo_servicio_id')
             ->select('control_archivos.id', 'tipo_servicios.codigo as codigo', 'control_archivos.carpeta', 'tipo_servicios.nombre as nombre')
             ->where('control_archivos.cliente_id', '=', $value)
             ->orderBy('tipo_servicios.codigo', 'asc')
             ->orderBy('carpeta', 'asc')
             ->get();
-         
+            return $this->servicios;
     }
-   /*  public function hydrate()
+    public function updateClienteId($value)
     {
-        $this->emit('select2Servicio');
-    } */
+        $this->clienteId = $value;
+         $servicios = $this->getDataServicios($value);
+         $this->emit('updateDataServicios',$servicios);
+       /*  $this->getDataServicios($value);   */       
+    }
+   
 
     public function saveKardex()
     {
@@ -121,17 +124,18 @@ class KardexController extends Component
         $this->selected_id = $record->id;
         $this->servicioId = $record->control_archivo_id;
         $control = ControlArchivo::find($record->control_archivo_id);
-        $this->clienteId = $control->cliente_id;
+        /* $this->clienteId = $control->cliente_id; */
         $this->carpeta = $control->carpeta;
         $this->destinatario = $record->destinatario;
         $this->descripcion = $record->descripcion;
         $this->enviadoPor = $record->enviadoPor;
+        $this->updateClienteId($control->cliente_id);
         $this->emit('updateSelect2');
+        
     }
 
     public function Ver($id)
     {
-
         $record = Kardex::find($id);
         $control = ControlArchivo::find($record->control_archivo_id);
         $enviadoPor = User::find($record->enviadoPor);

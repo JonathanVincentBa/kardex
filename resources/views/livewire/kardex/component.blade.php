@@ -20,75 +20,114 @@
             </div>
         </div>
     </div>
-</div>
-<script>
-    document.addEventListener('livewire:load', function() {
-        
-        window.livewire.on('show-modal', msg =>{
-            $('#theModal').modal('show')
-        });
-        
-        const clienteSelect2 = $('#cliente')
-        const servicioSelect2 = $('#tipo')
+    <script>
+        document.addEventListener('livewire:load', function() {
+            Livewire.on('show-modal', msg => {
+                console.log('show-modal')
+                $('#theModal').modal('show')
+            });
 
-        clienteSelect2.select2({
-            placeholder: '{{ __('SELECCIONE UN CLIENTE') }}',
-            allowClear: true
-        });
-        servicioSelect2.select2({
-            placeholder: '{{ __('SELECCIONE CLIENTE PRIMERO') }}',
-            allowClear: true,
-        });
-        clienteSelect2.on('change', function(e) {
-            var clienteId = clienteSelect2.select2("val");
-            @this.set('clienteId', clienteId);
-        }); 
-        servicioSelect2.on('change', function(e) {
-            var servicioId = servicioSelect2.select2("val");
-            @this.set('servicioId', servicioId);
-        });
-        $(document).ready(function() {
-            window.initSelectStationDrop = () => {
+            const clienteSelect2 = $('#cliente')
+            const servicioSelect2 = $('#tipo')
+
+            clienteSelect2.select2({
+                placeholder: '{{ __('SELECCIONE UN CLIENTE') }}',
+                allowClear: true
+            });
+            servicioSelect2.select2({
+                placeholder: '{{ __('SELECCIONE CLIENTE PRIMERO') }}',
+                allowClear: true,
+            });
+            clienteSelect2.on('change', function(e) {
+                var clienteId = clienteSelect2.select2("val");
+                @this.updateClienteId(clienteId);
+                /* updateDataServicios(clienteId); */
+            });
+            servicioSelect2.on('change', function(e) {
+                var servicioId = servicioSelect2.select2("val");
+                @this.set('servicioId', servicioId);
+
+            });
+
+            const run = async function () {
+                const data = await @this.getDataServicios(@this.get('clienteId')).then((result) => result);
+                console.log(data,'run');
+
+            }
+            Livewire.on('updateDataServicios', async function(servicios) {
+                const dataServicios = await servicios;
+                if (!dataServicios) {
+                    return;
+                }
+                const data = [];
+                dataServicios.map(function({
+                    id,
+                    codigo,
+                    carpeta,
+                    nombre
+                }) {
+                    const option = {
+                        id: id,
+                        text: `${codigo}-${carpeta}-${nombre}`
+                    }
+                    data.push(option);
+                });
+                
                 servicioSelect2.select2({
                     placeholder: '{{ __('SELECCIONE UN SERVICIO') }}',
                     allowClear: true,
+                    data: data
                 });
-            }
-            initSelectStationDrop();
-            window.livewire.on('select2Servicio', () => {
+            })
+
+       /*       $(document).ready(function() {
+                window.initSelectStationDrop = () => {
+                    servicioSelect2.select2({
+                        placeholder: '{{ __('SELECCIONE UN SERVICIO') }}',
+                        allowClear: true,
+                    });
+                }
                 initSelectStationDrop();
-            });
-        });
-        livewire.on('updateSelect2', function() {
-            /* servicioSelect2.val(@this.get('servicioId')).trigger('change'); */
-            clienteSelect2.val(@this.get('clienteId')).trigger('change');
-        })
+                window.livewire.on('select2Servicio', () => {
+                    initSelectStationDrop();
+                });
+            });  */
 
+            Livewire.on('updateSelect2', function() {
+                console.log(@this.get('servicioId'));
+                console.log(@this.get('clienteId'));
+                run();
+                servicioSelect2.val(@this.get('servicioId')).trigger('change');
 
-
-        livewire.on('hide-modal', msg => {
-            $('#theModal').modal('hide');
-
-        })
-        livewire.on('errorFecha', msg => {
-            Swal.fire({
-                position: 'top-end',
-                icon: 'error',
-                title: msg,
-                showConfirmButton: false,
-                timer: 1500
+                clienteSelect2.val(@this.get('clienteId')).trigger('change');
             })
-        })
 
-        livewire.on('kardex-added', msg => {
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: msg,
-                showConfirmButton: false,
-                timer: 1500
+
+
+            livewire.on('hide-modal', msg => {
+                $('#theModal').modal('hide');
+
             })
+            livewire.on('errorFecha', msg => {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: msg,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            })
+
+            livewire.on('kardex-added', msg => {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: msg,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            })
+
         })
-        
-    })
-</script>
+    </script>
+</div>
