@@ -29,7 +29,7 @@
                                             <i class="fa fa-search"></i>
                                         </span>
                                     </div>
-                                    <select wire:model='servicioId' id="tipo" style="width:400px">
+                                    <select id="tipo" style="width:400px">
                                         <option value=""></option>
                                     </select>
                                 </div>

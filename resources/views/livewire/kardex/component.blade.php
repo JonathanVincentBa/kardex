@@ -18,11 +18,13 @@
                 <!-- ASUNTO -->
                 @include('livewire.kardex.partials.datos')
             </div>
+            @include('livewire.kardex.partials.form')
         </div>
     </div>
+    
     <script>
         document.addEventListener('livewire:load', function() {
-            Livewire.on('show-modal', msg => {
+            Livewire.on('show-modal', () => {
                 console.log('show-modal')
                 $('#theModal').modal('show')
             });
@@ -38,23 +40,21 @@
                 placeholder: '{{ __('SELECCIONE CLIENTE PRIMERO') }}',
                 allowClear: true,
             });
-            clienteSelect2.on('change', function(e) {
-                var clienteId = clienteSelect2.select2("val");
-                @this.updateClienteId(clienteId);
-                /* updateDataServicios(clienteId); */
+            clienteSelect2.on('change', async function(e) {
+                const clienteId = clienteSelect2.val();
+                @this.set('clienteId', clienteId);
+                console.log('Cliente', clienteId);
+                const servicios = await @this.getDataServicios(clienteId);
+                updateDataServicios(servicios);
             });
             servicioSelect2.on('change', function(e) {
-                var servicioId = servicioSelect2.select2("val");
+                console.log("Hola desde select2 servicio change")
+                const servicioId = servicioSelect2.select2("val");
                 @this.set('servicioId', servicioId);
 
             });
 
-            const run = async function () {
-                const data = await @this.getDataServicios(@this.get('clienteId')).then((result) => result);
-                console.log(data,'run');
-
-            }
-            Livewire.on('updateDataServicios', async function(servicios) {
+          const  updateDataServicios =  async function(servicios) {
                 const dataServicios = await servicios;
                 if (!dataServicios) {
                     return;
@@ -72,13 +72,15 @@
                     }
                     data.push(option);
                 });
-                
+                servicioSelect2.select2('destroy');
+                servicioSelect2.empty();
                 servicioSelect2.select2({
                     placeholder: '{{ __('SELECCIONE UN SERVICIO') }}',
                     allowClear: true,
                     data: data
                 });
-            })
+                servicioSelect2.val(@this.get('servicioId')).trigger('change');
+            }
 
        /*       $(document).ready(function() {
                 window.initSelectStationDrop = () => {
@@ -93,13 +95,9 @@
                 });
             });  */
 
-            Livewire.on('updateSelect2', function() {
-                console.log(@this.get('servicioId'));
-                console.log(@this.get('clienteId'));
-                run();
-                servicioSelect2.val(@this.get('servicioId')).trigger('change');
-
-                clienteSelect2.val(@this.get('clienteId')).trigger('change');
+            Livewire.on('updateSelect2', async function() {
+                const clienteId = @this.get('clienteId');
+                clienteSelect2.val(clienteId).trigger('change');
             })
 
 

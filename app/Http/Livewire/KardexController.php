@@ -15,8 +15,7 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class KardexController extends Component
 {
-    public $componetName, $pageTitle, $clientes = [], $clienteId, $servicios = [], $servicioId, $enviadoPor,
-           $destinatario, $descripcion,$fechaActual, $desde, $hasta, $selected_id, $carpeta, $control_id,
+    public $componetName, $pageTitle, $clientes = [], $clienteId = null, $servicios = [], $servicioId = null, $enviadoPor,$destinatario, $descripcion,$fechaActual, $desde, $hasta, $selected_id, $carpeta, $control_id,
            $tipoCodigo, $tipoNombre, $clienteNombre, $enviadoX, $fechaEnvio;
 
     protected $listeners = ['changeData'];
@@ -91,14 +90,7 @@ class KardexController extends Component
             ->orderBy('tipo_servicios.codigo', 'asc')
             ->orderBy('carpeta', 'asc')
             ->get();
-            return $this->servicios;
-    }
-    public function updateClienteId($value)
-    {
-        $this->clienteId = $value;
-         $servicios = $this->getDataServicios($value);
-         $this->emit('updateDataServicios',$servicios);
-       /*  $this->getDataServicios($value);   */       
+            return collect($this->servicios)->toArray();
     }
    
 
@@ -114,8 +106,9 @@ class KardexController extends Component
         $fecha = Carbon::now();
         $this->fechaActual = $fecha->toDateTimeString();
         $this->emit('kardex-added', 'Carta Registrada');
+        $this->reset();
         $this->clientes = Cliente::all();
-        $this->servicios = collect();
+
     }
    
     public function Edit($id)
@@ -124,12 +117,11 @@ class KardexController extends Component
         $this->selected_id = $record->id;
         $this->servicioId = $record->control_archivo_id;
         $control = ControlArchivo::find($record->control_archivo_id);
-        /* $this->clienteId = $control->cliente_id; */
+        $this->clienteId =$control->cliente_id;
         $this->carpeta = $control->carpeta;
         $this->destinatario = $record->destinatario;
         $this->descripcion = $record->descripcion;
         $this->enviadoPor = $record->enviadoPor;
-        $this->updateClienteId($control->cliente_id);
         $this->emit('updateSelect2');
         
     }
@@ -151,12 +143,12 @@ class KardexController extends Component
         $this->descripcion = $record->descripcion;
         $this->enviadoX = $enviadoPor->name;
 
-        $this->emit('show-modal', 'Show modal!');
+        $this->emit('show-modal');
     }
 
     public function resetUI()
     {
-        $this->reset();
+        $this->resetExcept('componetName', 'pageTitle','desde', 'hasta');
     }
 
     public function actualizarKardex()
@@ -174,8 +166,8 @@ class KardexController extends Component
         $this->componetName = 'Cartas';
         $fecha = Carbon::now();
         $this->fechaActual = $fecha->toDateTimeString();
+        $this->reset();
         $this->clientes = Cliente::all();
-        $this->servicios = collect();
         $this->emit('kardex-added', 'Carta Actualizada');
     }
 
