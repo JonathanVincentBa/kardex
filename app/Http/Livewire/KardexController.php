@@ -16,7 +16,7 @@ use PhpOffice\PhpWord\TemplateProcessor;
 class KardexController extends Component
 {
     public $componetName, $pageTitle, $clientes = [], $clienteId = null, $servicios = [], $servicioId = null, $enviadoPor,$destinatario, $descripcion,$fechaActual, $desde, $hasta, $selected_id, $carpeta, $control_id,
-           $tipoCodigo, $tipoNombre, $clienteNombre, $enviadoX, $fechaEnvio;
+           $tipoCodigo, $tipoNombre, $clienteNombre, $enviadoX, $fechaEnvio, $date;
 
     protected $listeners = ['changeData'];
 
@@ -139,6 +139,7 @@ class KardexController extends Component
         $this->tipoCodigo = $tipo->codigo;
         $this->tipoNombre = $tipo->nombre;
         $this->carpeta = $control->carpeta;
+        $this->date = $record->created_at->toDateTimeString();
         $this->destinatario = $record->destinatario;
         $this->descripcion = $record->descripcion;
         $this->enviadoX = $enviadoPor->name;
