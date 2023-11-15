@@ -4,6 +4,7 @@ use App\Http\Livewire\AsignarController;
 use App\Http\Livewire\ClientesController;
 use App\Http\Livewire\ContactoClientesController;
 use App\Http\Livewire\ControlArchivosController;
+use App\Http\Livewire\ControlReportController;
 use App\Http\Livewire\IngresoDocumentosController;
 use App\Http\Livewire\Kardexcontroller;
 use App\Http\Livewire\PermisosController;
@@ -55,5 +56,7 @@ Route::get('/permisos', PermisosController::class)->name('permisos');
 Route::get('/asignar', AsignarController::class)->name('asignar');
 
 Route::get('/users', UsersController::class)->name('users');
+
+Route::get('/control-report', ControlReportController::class)->name('control-report');
 
 

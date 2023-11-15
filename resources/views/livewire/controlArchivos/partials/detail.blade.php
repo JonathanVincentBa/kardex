@@ -8,6 +8,7 @@
                         <table class="table table-bordered table-striped mt-1">
                             <thead class="text-white" style="background: #3b3f5c">
                                 <tr>
+                                    <th width="8%" class="table-th text-center text-white">CODIGO</th>
                                     <th width="8%" class="table-th text-center text-white">CLIENTE</th>
                                     <th width="8%" class="table-th text-center text-white">CARPETA</th>
                                     <th width="8%" class="table-th text-center text-white">ASUNTO</th>
@@ -17,6 +18,7 @@
                             <tbody>
                                 @foreach ($controlArchivos as $item)
                                     <tr>
+                                        <td>{{ $item->cod_cliente }}</td>
                                         <td>{{ $item->cliente }}</td>
                                         <td>{{ $item->tipo }}-{{ $item->carpeta }}</td>
                                         <td>{{ $item->asunto }}</td>
@@ -51,20 +53,42 @@
             function Confirm(control) {
 
                 Swal.fire({
-                    title: 'CONFIRMAR',
-                    text: "CONFIRMAS ELIMINAR EL REGISTRO",
-                    icon: 'warning',
+                    title: "Número de carpeta de pasivo",
+                    input: "text",
+                    inputAttributes: {
+                        autocapitalize: "off"
+                    },
                     showCancelButton: true,
-                    confirmButtonColor: '#3b3f5c',
                     cancelButtonText: 'Cerrar',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: '#3b3f5c',
+                    showLoaderOnConfirm: true,
+                    preConfirm: async (login) => {
+                        try {
+                            const githubUrl = `https://api.github.com/users/${login}`;
+                            const response = await fetch(githubUrl);
+                            if (!response.ok) {
+                                return Swal.showValidationMessage(`Ingrese el número de carpeta`);
+                            }
+                            return response.json();
+                        } catch (error) {
+                            Swal.showValidationMessage(`Request failed: ${error}`);
+                        }
+                    },
+                    allowOutsideClick: () => !Swal.isLoading()
                 }).then((result) => {
-                    if (result.value) {
+                    if (result.isConfirmed) {
                         window.livewire.emit('deleteRow', control)
-                        swal.close()
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'El registro paso a pasivo correctamente',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
                     }
-                })
+                });
             }
         </script>
     @endpush

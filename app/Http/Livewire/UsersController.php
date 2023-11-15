@@ -116,6 +116,7 @@ class UsersController extends Component
         ];
         $this->validate($rules, $messages);
 
+        $role = $this->role_id;
         $user = User::create([
             'name'      => $this->name,
             'email'     => $this->email,
@@ -126,7 +127,13 @@ class UsersController extends Component
             
         ]);
 
-        $user->syncRoles($this->role_id);
+        if ($role == 1) {
+            $user->assignRole('ADMINISTRACION');
+        } else if ($role == 2) {
+            $user->assignRole('SISTEMAS');
+        }{
+            $user->assignRole('ABOGADOS');
+        }
 
         if ($this->imagen) {
             $customFileName = uniqid() .'_.' .$this->imagen->extension();
@@ -168,6 +175,7 @@ class UsersController extends Component
         ];
         $this->validate($rules, $messages);
         $user = User::find($this->selected_id);
+        $role = $this->role_id;
         $user->update([
             'name'      => $this->name,
             'email'     => $this->email,
@@ -176,8 +184,13 @@ class UsersController extends Component
             'status'    => $this->status,
             'dni'       =>$this->dni
         ]);
-
-        $user->syncRoles($this->role_id);
+        if ($role == 1) {
+            $user->assignRole('ADMINISTRACION');
+        } else if ($role == 2) {
+            $user->assignRole('SISTEMAS');
+        }{
+            $user->assignRole('ABOGADOS');
+        }
         
         if ($this->imagen) {
             $customFileName = uniqid() .'_.' .$this->imagen->extension();

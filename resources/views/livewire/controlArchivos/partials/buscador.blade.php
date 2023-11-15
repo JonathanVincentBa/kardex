@@ -24,6 +24,17 @@
                                         <span class="text-danger er">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <div class="input-group mb-4" width="100%">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text input-gp">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                    </div>
+                                   <input class="form-control" type="text" placeholder="BUSCAR SEGÚN EL CLIENTE">
+                                    @error('cliente_id')
+                                        <span class="text-danger er">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                     </div>

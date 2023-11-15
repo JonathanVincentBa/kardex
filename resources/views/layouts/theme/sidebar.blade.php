@@ -116,7 +116,7 @@
                 <i class="treeview-indicator fa fa-angle-right"></i>
             </a>
             <ul class="treeview-menu">
-                <li><a class="treeview-item" href="{{ url('users') }}"><i class="icon fa fa-circle-o"></i>
+                <li><a class="treeview-item" href="{{ url('control-report') }}"><i class="icon fa fa-circle-o"></i>
                         Control de Archivos</a></li>
                 <li><a class="treeview-item" href="{{ url('users') }}"><i class="icon fa fa-circle-o"></i>Correspondencia</a></li>
                 <li><a class="treeview-item" href="{{ url('users') }}"><i class="icon fa fa-circle-o"></i>
