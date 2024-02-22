@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
+
+class Kardex extends Model implements Auditable
+{
+    use HasFactory;
+    use SoftDeletes;
+    use \OwenIt\Auditing\Auditable;
+
+    protected $fillable = [
+        'control_archivo_id',
+        'destinatario',
+        'descripcion',
+        'enviadoPor',
+    ];
+
+    public function control_archivos()
+    {
+        return $this->belongsTo(ControlArchivo::class);
+    }
+}
