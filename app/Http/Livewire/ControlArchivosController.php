@@ -90,12 +90,11 @@ class ControlArchivosController extends Component
     }
     public function updatedselectedTipo($tipoId)
     {
-
-
         $this->codigo = ControlArchivo::withTrashed()
             ->where('cliente_id', $this->selectedCliente)
             ->where('tipo_servicio_id', $tipoId)
             ->count();
+   
     }
 
     public function updateCliente($id)
@@ -104,8 +103,6 @@ class ControlArchivosController extends Component
         $this->selectedCliente = $id;
         $this->emit('updateSelect2Servicio');
     }
-
-
 
     public function saveControl()
     {

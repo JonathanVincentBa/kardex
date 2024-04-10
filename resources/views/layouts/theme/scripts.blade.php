@@ -23,4 +23,6 @@
     });
 </script>
 
+<script src="{{ asset('../js/flatpickr.js')}}"></script>
+
 @livewireScripts

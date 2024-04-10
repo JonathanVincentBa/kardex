@@ -11,7 +11,7 @@ class ContactoClientesController extends Component
 {
     use WithPagination;
 
-    public $clienteid, $nombre, $fono, $extension, $celular, $email, $search, $selected_id, $pageTitle, $componetName;
+    public $clienteid, $nombre, $fono, $extension, $celular, $email, $search, $selected_id, $pageTitle, $componentName;
 
     private $pagination = 5;
 
@@ -23,7 +23,7 @@ class ContactoClientesController extends Component
     public function mount()
     {
         $this->pageTitle = 'Listado';
-        $this->componetName = 'Contato Clientes';
+        $this->componentName = 'Contato Clientes';
     }
 
 

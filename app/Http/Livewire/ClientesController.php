@@ -11,13 +11,15 @@ class ClientesController extends Component
 {
     use WithPagination;
 
-    public $codigo, $nombre, $direccion, $dni, $fono1, $fono2, $email, $search, $selected_id, $pageTitle, $componetName;
+    
+
+    public $codigo, $nombre, $direccion, $dni, $fono1, $fono2, $email, $search, $selected_id, $pageTitle, $componentName;
     private $pagination = 10;
 
     public function mount()
     {
         $this->pageTitle = 'Listado';
-        $this->componetName = 'Clientes';
+        $this->componentName = 'Clientes';
     }
 
     public function paginationView()

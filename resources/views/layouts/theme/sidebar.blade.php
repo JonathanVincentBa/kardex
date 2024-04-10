@@ -109,7 +109,7 @@
                 </a>
             </li>
         @endcan
-        @can('Reportes')
+        @can('reportes')
             <li class="treeview">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
                     <i class="app-menu__icon fa fa-pie-chart"></i>
@@ -117,14 +117,25 @@
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a class="treeview-item" href="{{ url('control-report') }}"><i class="icon fa fa-circle-o"></i>
-                            Control de Archivos</a></li>
-                    <li><a class="treeview-item" href="{{ url('users') }}"><i
-                                class="icon fa fa-circle-o"></i>Correspondencia</a></li>
-                    <li><a class="treeview-item" href="{{ url('users') }}"><i class="icon fa fa-circle-o"></i>
-                            Cartas</a></li>
-                    <li><a class="treeview-item" href="{{ url('pasivo') }}"><i class="icon fa fa-circle-o"></i>
-                            Carpetas en pasivo</a></li>
+                    @can('reporte.cliente.view')
+                        <li><a class="treeview-item" href="{{ url('cliente-reports') }}"><i class="icon fa fa-circle-o"></i>
+                                Clientes</a></li>
+                    @endcan
+                    @can('reporte.control-archivo.view')
+                        <li><a class="treeview-item" href="{{ url('control-archivos-reports') }}"><i
+                                    class="icon fa fa-circle-o"></i>
+                                Control de Archivos</a></li>
+                    @endcan
+                            @can ('reporte.correspondencia.view') 
+                                
+                        <li><a class="treeview-item" href="{{ url('correspondencia-reports') }}"><i
+                                    class="icon fa fa-circle-o"></i>Correspondencia</a></li>
+                            @endcan
+                            @can ('reporte.cartas.view') 
+                                
+                        <li><a class="treeview-item" href="{{ url('cartas-reports') }}"><i class="icon fa fa-circle-o"></i>
+                                Cartas</a></li>
+                            @endcan
                 </ul>
 
             </li>

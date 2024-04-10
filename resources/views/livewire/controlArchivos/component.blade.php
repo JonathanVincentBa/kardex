@@ -22,11 +22,12 @@
     <script>
         document.addEventListener('livewire:load', function() {
             const servicioSelect2 = $('#tipo');
+            const clienteSelect2 = $('#cliente');
 
-            $('#cliente').select2().val(@this.get('selectedCliente')).trigger('change');
+            clienteSelect2.select2().val(@this.get('selectedCliente')).trigger('change');
 
-            $('#cliente').on('change', function(e) {
-                var clienteId = $('#cliente').select2("val");
+            clienteSelect2.on('change', function(e) {
+                var clienteId = clienteSelect2.select2("val");
                 @this.updateCliente(clienteId);
             });
 

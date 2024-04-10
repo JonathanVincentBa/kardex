@@ -1,10 +1,15 @@
 <?php
 
+use App\Http\Controllers\ClienteExportController;
+use App\Http\Controllers\ControlExportController;
 use App\Http\Livewire\AsignarController;
+use App\Http\Livewire\CartasReportsController;
+use App\Http\Livewire\ClienteReportsController;
 use App\Http\Livewire\ClientesController;
 use App\Http\Livewire\ContactoClientesController;
 use App\Http\Livewire\ControlArchivosController;
-use App\Http\Livewire\ControlReportController;
+use App\Http\Livewire\ControlArchivosReportsController;
+use App\Http\Livewire\CorrespondenciaReportsController;
 use App\Http\Livewire\IngresoDocumentosController;
 use App\Http\Livewire\Kardexcontroller;
 use App\Http\Livewire\PassivesController;
@@ -31,35 +36,41 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('auth')->name('home');
 
-Route::get('/clientes', ClientesController::class)->name('clientes');
+Route::get('/clientes', ClientesController::class)->name('clientes')->middleware('auth');
 
-Route::get('/contacto-clientes',ContactoClientesController::class)->name('contacto-clientes');
+Route::get('/contacto-clientes',ContactoClientesController::class)->middleware('auth')->name('contacto-clientes');
 
-Route::get('/servicios', ServiciosController::class)->name('servicios');
+Route::get('/servicios', ServiciosController::class)->middleware('auth')->name('servicios');
 
-Route::get('/tipo-servicios', TipoServiciosController::class)->name('tipo-servicios');
+Route::get('/tipo-servicios', TipoServiciosController::class)->middleware('auth')->name('tipo-servicios');
 
-Route::get('/control-archivos', ControlArchivosController::class)->name('control-archivos');
+Route::get('/control-archivos', ControlArchivosController::class)->middleware('auth')->name('control-archivos');
 
-Route::get('/ingreso-documentos', IngresoDocumentosController::class)->name('ingreso-documentos');
+Route::get('/control-archivos-reports', ControlArchivosReportsController::class)->middleware('auth')->name('control-archivos-reports');
 
-Route::get('/kardex', KardexController::class)->name('kardex');
+Route::get('/ingreso-documentos', IngresoDocumentosController::class)->middleware('auth')->name('ingreso-documentos');
 
-Route::get('/roles', RolesController::class)->name('roles');
+Route::get('/kardex', KardexController::class)->name('kardex')->middleware('auth');
 
-Route::get('/permisos', PermisosController::class)->name('permisos');
+Route::get('/roles', RolesController::class)->name('roles')->middleware('auth');
 
-Route::get('/asignar', AsignarController::class)->name('asignar');
+Route::get('/permisos', PermisosController::class)->middleware('auth')->name('permisos');
 
-Route::get('/users', UsersController::class)->name('users');
+Route::get('/asignar', AsignarController::class)->middleware('auth')->name('asignar');
 
-Route::get('/control-report', ControlReportController::class)->name('control-report');
+Route::get('/users', UsersController::class)->middleware('auth')->name('users');
 
-Route::get('/pasivo', PassivesController::class)->name('pasivo');
+Route::get('/cliente-reports', ClienteReportsController::class)->middleware('auth')->name('cliente-reports');
 
+Route::get('/correspondencia-reports', CorrespondenciaReportsController::class)->middleware('auth')->name('cliente-reports');
 
+Route::get('/cartas-reports', CartasReportsController::class)->middleware('auth')->name('cartas-reports');
 
+Route::get('control-report/pdf/{cliente}/{type}/{carpeta}', [ControlExportController::class, 'reportPDF']);
+
+Route::get('cliente-report/pdf/{type}', [ClienteExportController::class, 'reportPDF']);

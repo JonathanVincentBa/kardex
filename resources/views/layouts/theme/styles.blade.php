@@ -18,6 +18,7 @@
 <link href="{{ asset('../css/bootstrap-datepicker.min.css')}}"rel="stylesheet" type="text/css" >
 <link href="{{ asset('../css/gijgo.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('../css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+{{-- <link href="{{ asset('../plugins/select2/select2.min.scss')}}" rel="stylesheet" type="text/css" /> --}}
 
 <!-- Fonts -->
 <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -39,6 +40,8 @@
         text-decoration: none;
     }
 </style>
+
+<link href="{{ asset('../css/flatpickr.green.css')}}" rel="stylesheet"  type="text/css">
 
 @livewireStyles
 <!-- CSRF Token -->

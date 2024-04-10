@@ -33,10 +33,12 @@
                 placeholder: '{{ __('SELECCIONE UN CLIENTE') }}',
                 allowClear: true
             });
+
             servicioSelect2.select2({
                 placeholder: '{{ __('SELECCIONE CLIENTE PRIMERO') }}',
                 allowClear: true,
             });
+
             clienteSelect2.on('change', async function(e) {
                 const clienteId = clienteSelect2.val();
                 @this.set('clienteId', clienteId);
@@ -44,6 +46,7 @@
                 const servicios = await @this.getDataServicios(clienteId);
                 updateDataServicios(servicios);
             });
+            
             servicioSelect2.on('change', function(e) {
                 const servicioId = servicioSelect2.select2("val");
                 @this.set('servicioId', servicioId);
@@ -77,19 +80,6 @@
                 });
                 servicioSelect2.val(@this.get('servicioId')).trigger('change');
             }
-
-       /*       $(document).ready(function() {
-                window.initSelectStationDrop = () => {
-                    servicioSelect2.select2({
-                        placeholder: '{{ __('SELECCIONE UN SERVICIO') }}',
-                        allowClear: true,
-                    });
-                }
-                initSelectStationDrop();
-                window.livewire.on('select2Servicio', () => {
-                    initSelectStationDrop();
-                });
-            });  */
 
             Livewire.on('updateSelect2', async function() {
                 const clienteId = @this.get('clienteId');
